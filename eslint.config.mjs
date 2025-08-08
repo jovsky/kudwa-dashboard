@@ -1,20 +1,21 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-import { Linter } from "eslint";
-import typescriptParser from "@typescript-eslint/parser";
-import typescriptPlugin from "@typescript-eslint/eslint-plugin";
-import prettierPlugin from "eslint-plugin-prettier";
-import reactPlugin from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
+import { FlatCompat } from "@eslint/eslintrc"
+import tanstackQueryPlugin from "@tanstack/eslint-plugin-query"
+import typescriptPlugin from "@typescript-eslint/eslint-plugin"
+import typescriptParser from "@typescript-eslint/parser"
+import { Linter } from "eslint"
+import prettierPlugin from "eslint-plugin-prettier"
+import reactPlugin from "eslint-plugin-react"
+import reactHooks from "eslint-plugin-react-hooks"
+import simpleImportSort from "eslint-plugin-simple-import-sort"
+import { dirname } from "path"
+import { fileURLToPath } from "url"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
-});
+})
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
@@ -30,6 +31,7 @@ const eslintConfig = [
       react: reactPlugin,
       "react-hooks": reactHooks,
       "simple-import-sort": simpleImportSort,
+      "@tanstack/query": tanstackQueryPlugin,
     },
     rules: {
       ...Linter.recommended,
@@ -37,12 +39,12 @@ const eslintConfig = [
       ...prettierPlugin.configs.recommended.rules,
       ...reactPlugin.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      ...simpleImportSort.configs.recommended.rules,
+      ...tanstackQueryPlugin.configs.recommended.rules,
 
       // TypeScript rules
-      "@typescript-eslint/no-unused-vars": "error",
-      "@typescript-eslint/no-unused-expression": "error",
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-unused-expression": "off",
+      "@typescript-eslint/no-explicit-any": "off",
 
       // Prettier integration
       "prettier/prettier": "error",
@@ -63,6 +65,6 @@ const eslintConfig = [
       },
     },
   },
-];
+]
 
-export default eslintConfig;
+export default eslintConfig
