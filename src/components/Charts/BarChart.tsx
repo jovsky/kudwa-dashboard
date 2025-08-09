@@ -46,7 +46,7 @@ const BarChart: FC<BarChartProps> = ({
         <p className="mt-2 items-center text-center text-lg font-bold uppercase">{chartName}</p>
         <p className="mt-1 text-center">Total: {formatFn(totalItems)}</p>
       </div>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width={600} height={300}>
         <RBarChart data={chartData} margin={{ top: 30, left: 20 }} className="outline-none!">
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="xDesc" tick={{ fontSize: 12 }} />
@@ -62,8 +62,8 @@ const BarChart: FC<BarChartProps> = ({
             }}
             tickFormatter={formatFn}
           />
-          <Tooltip content={(val) => <ChartTooltip val={val} />} />
-          <Bar dataKey="Value" fill={barColor} stackId="a" isAnimationActive={false} />
+          <Tooltip content={(val) => <ChartTooltip val={val} descKey="xDesc" valueKey="Value" />} />
+          <Bar dataKey="Value" fill={barColor} stackId="a" isAnimationActive={true} />
         </RBarChart>
       </ResponsiveContainer>
     </div>

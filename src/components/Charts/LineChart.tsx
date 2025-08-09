@@ -62,14 +62,14 @@ const LineChart: FC<LineChartProps> = ({
             }}
             tickFormatter={formatFn}
           />
-          <Tooltip content={(val) => <ChartTooltip val={val} />} />
+          <Tooltip content={(val) => <ChartTooltip val={val} descKey="xDesc" valueKey="Value" />} />
           <Line
             dataKey="Value"
             stroke={lineColor}
             type="monotone"
             strokeWidth={2}
             dot={{ stroke: lineColor, strokeWidth: 3, fill: lineColor }}
-            isAnimationActive={false}
+            isAnimationActive={true}
           />
         </RLineChart>
       </ResponsiveContainer>

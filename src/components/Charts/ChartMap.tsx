@@ -13,6 +13,7 @@ import formatCurrency from "@/utils/formatCurrency"
 import BarChart from "./BarChart"
 import DonutChart from "./DonutChart"
 import LineChart from "./LineChart"
+import PieChart from "./PieChart"
 
 interface ChartMapProps {
   chartInfo: ChartInfoUnion[]
@@ -29,7 +30,6 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
   const lineChartInfo: LineChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "line")
   const donutChartInfo: DonutChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "donut")
   const barChartInfo: BarChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "bar")
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const pieChartInfo: PieChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "pie")
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const columnStackedChartInfo: ColumnStackedChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "columnStacked")
@@ -76,6 +76,17 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
       ),
     )
     Charts.push(...LineCharts)
+  }
+
+  if (pieChartInfo.length) {
+    Charts.push(
+      <PieChart
+        chartData={pieChartInfo.map((chart) => ({
+          name: chart.name,
+          value: chart.values,
+        }))}
+      />,
+    )
   }
 
   if (donutChartInfo.length) {

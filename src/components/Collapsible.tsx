@@ -49,7 +49,7 @@ const Collapsible: FC<CollapseProps> = ({
         data-collapse-content
       >
         {isOpen && (
-          <div className="p-3 md:p-6 overflow-auto relative" data-collapse-content-box>
+          <div className="p-6 pr-0 overflow-auto relative" data-collapse-content-box>
             {children}
           </div>
         )}
