@@ -1,7 +1,7 @@
 import { FC } from "react"
 
+import Logo from "../Logo"
 import { Profile } from "../Profile"
-import Logo from "./Logo"
 
 const TopBar: FC = () => {
   return (

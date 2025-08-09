@@ -47,7 +47,7 @@ const Dashboard: React.FC = () => {
       {loading ? (
         <LoadingScreen />
       ) : data ? (
-        <div className="py-2 px-6 overflow-y-auto">
+        <div className="pt-2 px-6 pb-20 overflow-y-auto">
           <MainDashboard mainDashboard={data.mainDashboard} />
           {/* <MainDashboardKPIs mainDashboard={data.mainDashboard} /> */}
         </div>

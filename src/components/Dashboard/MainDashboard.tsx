@@ -34,7 +34,7 @@ const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashbo
         </div>
       </div>
 
-      <div className="grid grid-rows-2 gap-4 mb-6">
+      <div className="grid grid-rows-2 gap-4 mb-10">
         <div className="grid grid-cols-3 gap-4">
           {series.slice(0, 3).map(({ name, data }) => (
             <ChartCard key={name} name={name} metricsCount={data.length} Icon={FaChartBar} color="blue" />
