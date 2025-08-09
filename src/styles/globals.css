@@ -78,7 +78,8 @@
   --color-kudwa-yellow-800: var(--kudwa-yellow-800);
   --color-kudwa-yellow-900: var(--kudwa-yellow-900);
 
-  --shadow-soft: 3px 3px 3px 0px rgba(0, 0, 0, 0.1);
+  --shadow-soft-right: 5px 5px 3px 0px rgba(0, 0, 0, 0.075);
+  --shadow-soft-left: -5px 5px 3px 0px rgba(0, 0, 0, 0.075);
 }
 
 body {

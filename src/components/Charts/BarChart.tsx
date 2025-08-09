@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react"
+import { FC, memo, useMemo } from "react"
 import { Bar, BarChart as RBarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 interface BarChartProps {
@@ -8,6 +8,16 @@ interface BarChartProps {
   barColor: string
   formatFn?: (value: number) => string
 }
+
+const TooltipContent: FC<{ xDesc: string; Value: string }> = memo(({ xDesc, Value }) => {
+  return (
+    <div className="bg-white p-2 rounded shadow">
+      <p className="text-sm font-bold">{xDesc}</p>
+      <p className="text-xs">Value: {Value}</p>
+    </div>
+  )
+})
+TooltipContent.displayName = "TooltipContent"
 
 const BarChart: FC<BarChartProps> = ({
   chartName,
@@ -40,7 +50,7 @@ const BarChart: FC<BarChartProps> = ({
           <XAxis dataKey="xDesc" tick={{ fontSize: 12 }} />
           <YAxis
             allowDecimals={false}
-            domain={[0, maxValueY]}
+            domain={[0, Math.max(maxValueY, 10)]}
             tick={{ fontSize: 14 }}
             label={{
               value: yAxisDescription,
@@ -50,7 +60,14 @@ const BarChart: FC<BarChartProps> = ({
             }}
             tickFormatter={formatFn}
           />
-          <Tooltip formatter={(value) => formatFn(+value)} />
+          <Tooltip
+            content={(val) =>
+              val.active &&
+              val.payload?.[0]?.payload && (
+                <TooltipContent xDesc={val.payload[0].payload.xDesc} Value={formatFn(+val.payload[0].payload.Value)} />
+              )
+            }
+          />
           <Bar
             dataKey="Value"
             fill={barColor}

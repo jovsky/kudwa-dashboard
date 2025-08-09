@@ -3,6 +3,8 @@ import { FaChartBar } from "react-icons/fa"
 
 import { IMainDashboard } from "@/types/dashboardTypes"
 
+import ChartMap from "../Charts/ChartMap"
+import Collapsible from "../Collapsible"
 import ChartCard from "./ChartCard"
 
 const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashboard }) => {
@@ -44,6 +46,16 @@ const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashbo
           ))}
         </div>
       </div>
+
+      <Collapsible togglerText={"Charts"}>
+        <div className="flex flex-col gap-4">
+          {series.map(({ name, data }) => (
+            <Collapsible key={name} togglerText={name}>
+              <ChartMap chartInfo={data} dateArray={mainDashboard.dateArray} />
+            </Collapsible>
+          ))}
+        </div>
+      </Collapsible>
     </>
   )
 }

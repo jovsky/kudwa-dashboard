@@ -5,7 +5,7 @@ import { ReportData } from "@/types/reportTypes"
 
 const ReportContent: React.FC<{ reportData: ReportData }> = ({ reportData }) => {
   return (
-    <div className="p-2 overflow-y-auto">
+    <div className="py-2 px-6 overflow-y-auto">
       <div className="bg-kudwa-light p-4 rounded-lg">
         <h2 className="text-xl font-semibold mb-2">Report Data</h2>
         <div className="space-y-2">

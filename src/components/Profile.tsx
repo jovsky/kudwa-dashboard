@@ -19,7 +19,7 @@ export const Profile: React.FC<ProfileProps> = ({ showProfileData = true, size =
         flex 
         items-center 
         cursor-pointer 
-        shadow-soft 
+        shadow-soft-left
         border-2
         border-kudwa-brown-400
         bg-kudwa-light
