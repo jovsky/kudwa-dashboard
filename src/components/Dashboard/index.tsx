@@ -13,7 +13,7 @@ import { Period } from "@/types/dashboardTypes"
 import Button from "../Button"
 import LoadingScreen from "../LoadingScreen"
 import PageTitle from "../PageTitle"
-import DashboardContent from "./DashboardContent"
+import MainDashboard from "./MainDashboard"
 import PeriodSelector from "./PeriodSelector"
 
 const Dashboard: React.FC = () => {
@@ -44,7 +44,14 @@ const Dashboard: React.FC = () => {
           />
         </div>
       </div>
-      {loading ? <LoadingScreen /> : data ? <DashboardContent dashboardData={data} /> : null}
+      {loading ? (
+        <LoadingScreen />
+      ) : data ? (
+        <div className="py-2 px-6 overflow-y-auto">
+          <MainDashboard mainDashboard={data.mainDashboard} />
+          {/* <MainDashboardKPIs mainDashboard={data.mainDashboard} /> */}
+        </div>
+      ) : null}
     </>
   )
 }
