@@ -7,7 +7,7 @@ import CustomErrorBoundary from "@/components/CustomErrorBoundary"
 
 const queryClient = new QueryClient()
 
-export default function Provedor({ children }: { children: React.ReactNode }) {
+export default function Provider({ children }: { children: React.ReactNode }) {
   return (
     <CustomErrorBoundary>
       <QueryClientProvider client={queryClient}>
