@@ -1,13 +1,13 @@
 import { FC, memo, useMemo } from "react"
-import { Bar, BarChart as RBarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import { CartesianGrid, Line, LineChart as RLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 import ChartTooltip from "./ChartTooltip"
 
-interface BarChartProps {
+interface LineChartProps {
   chartName: string
   chartData: Array<{ xDesc: string; Value: number }>
   yAxisDescription: string
-  barColor: string
+  lineColor: string
   formatFn?: (value: number) => string
 }
 
@@ -21,11 +21,11 @@ const TooltipContent: FC<{ xDesc: string; Value: string }> = memo(({ xDesc, Valu
 })
 TooltipContent.displayName = "TooltipContent"
 
-const BarChart: FC<BarChartProps> = ({
+const LineChart: FC<LineChartProps> = ({
   chartName,
   chartData,
   yAxisDescription,
-  barColor,
+  lineColor,
   formatFn = (value) => value.toString(),
 }) => {
   // Take the maximum Y value from the chart data
@@ -46,8 +46,8 @@ const BarChart: FC<BarChartProps> = ({
         <p className="mt-2 items-center text-center text-lg font-bold uppercase">{chartName}</p>
         <p className="mt-1 text-center">Total: {formatFn(totalItems)}</p>
       </div>
-      <ResponsiveContainer width="100%" height={300}>
-        <RBarChart data={chartData} margin={{ top: 30, left: 20 }} className="outline-none!">
+      <ResponsiveContainer width={600} height={300}>
+        <RLineChart data={chartData} margin={{ top: 30, left: 20 }} className="outline-none!">
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="xDesc" tick={{ fontSize: 12 }} />
           <YAxis
@@ -63,11 +63,18 @@ const BarChart: FC<BarChartProps> = ({
             tickFormatter={formatFn}
           />
           <Tooltip content={(val) => <ChartTooltip val={val} />} />
-          <Bar dataKey="Value" fill={barColor} stackId="a" isAnimationActive={false} />
-        </RBarChart>
+          <Line
+            dataKey="Value"
+            stroke={lineColor}
+            type="monotone"
+            strokeWidth={2}
+            dot={{ stroke: lineColor, strokeWidth: 3, fill: lineColor }}
+            isAnimationActive={false}
+          />
+        </RLineChart>
       </ResponsiveContainer>
     </div>
   )
 }
 
-export default BarChart
+export default LineChart

@@ -1,7 +1,7 @@
 import React from "react"
 import { FaChartBar } from "react-icons/fa"
 
-import { IMainDashboard } from "@/types/dashboardTypes"
+import { ChartInfoUnion, IMainDashboard } from "@/types/dashboardTypes"
 
 import ChartMap from "../Charts/ChartMap"
 import Collapsible from "../Collapsible"
@@ -9,14 +9,14 @@ import ChartCard from "./ChartCard"
 
 const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashboard }) => {
   const series = [
-    { name: "Cash at Bank", data: mainDashboard.charts.cashAtBank },
-    { name: "Expense Split", data: mainDashboard.charts.expenseSplit },
-    { name: "Indirect Cashflow", data: mainDashboard.charts.indirectCashflow },
-    { name: "Total Revenues Split", data: mainDashboard.charts.totalRevenuesSplit },
-    { name: "Profit Loss Overview", data: mainDashboard.charts.profitLossOverview },
-    { name: "Salaries Split", data: mainDashboard.charts.salariesSplit },
-    { name: "Manpower Operating Expenses", data: mainDashboard.charts.ManpowerOperatingExpenses },
-  ]
+    { name: "Cash at Bank", data: mainDashboard.charts.cashAtBank.filter((v) => v) },
+    { name: "Expense Split", data: mainDashboard.charts.expenseSplit.filter((v) => v) },
+    { name: "Indirect Cashflow", data: mainDashboard.charts.indirectCashflow.filter((v) => v) },
+    { name: "Total Revenues Split", data: mainDashboard.charts.totalRevenuesSplit.filter((v) => v) },
+    { name: "Profit Loss Overview", data: mainDashboard.charts.profitLossOverview.filter((v) => v) },
+    { name: "Salaries Split", data: mainDashboard.charts.salariesSplit.filter((v) => v) },
+    { name: "Manpower Operating Expenses", data: mainDashboard.charts.ManpowerOperatingExpenses.filter((v) => v) },
+  ] as Array<{ name: string; data: ChartInfoUnion[] }>
 
   return (
     <>
