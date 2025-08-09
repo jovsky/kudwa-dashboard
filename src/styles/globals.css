@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #f6f2f0;
+    --foreground: white;
+
+    /* Kudwa Brand Colors */
+    --kudwa-brown: #b09280;
+    --kudwa-yellow: #eae62f;
+    --kudwa-blue: #698ac5;
+    --kudwa-dark: #262626;
+    --kudwa-light: #fbfafa;
+
+    /* Light versions */
+    --kudwa-light-brown: color-mix(in srgb, var(--kudwa-brown) 50%, white);
+    --kudwa-light-yellow: color-mix(in srgb, var(--kudwa-yellow) 50%, white);
+    --kudwa-light-blue: color-mix(in srgb, var(--kudwa-blue) 50%, white);
+
+    /* Dark versions */
+    --kudwa-dark-brown: color-mix(in srgb, var(--kudwa-brown) 80%, black);
+    --kudwa-dark-yellow: color-mix(in srgb, var(--kudwa-yellow) 80%, black);
+    --kudwa-dark-blue: color-mix(in srgb, var(--kudwa-blue) 80%, black);
+  }
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-kudwa-brown: var(--kudwa-brown);
+  --color-kudwa-yellow: var(--kudwa-yellow);
+  --color-kudwa-blue: var(--kudwa-blue);
+  --color-kudwa-dark: var(--kudwa-dark);
+  --color-kudwa-light: var(--kudwa-light);
+
+  --color-kudwa-light-brown: var(--kudwa-light-brown);
+  --color-kudwa-light-yellow: var(--kudwa-light-yellow);
+  --color-kudwa-light-blue: var(--kudwa-light-blue);
+
+  --color-kudwa-dark-brown: var(--kudwa-dark-brown);
+  --color-kudwa-dark-yellow: var(--kudwa-dark-yellow);
+  --color-kudwa-dark-blue: var(--kudwa-dark-blue);
+
+  --shadow-soft: 5px 5px 3px 0px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  background: var(--background);
+  color: var(--kudwa-dark);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}

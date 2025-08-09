@@ -5,7 +5,7 @@ import { DashboardData } from "@/types/dashboardTypes"
 const DashboardContent: React.FC<{ dashboardData: DashboardData }> = ({ dashboardData }) => {
   return (
     <div style={{ padding: "2rem" }}>
-      <div className="bg-kudwa-light p-4 rounded-lg mb-6">
+      <div className="p-4 rounded-lg mb-6">
         <h2 className="text-xl font-semibold mb-2">Dashboard Overview</h2>
         <div className="space-y-2">
           <p>
