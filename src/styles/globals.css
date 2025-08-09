@@ -102,6 +102,7 @@ body {
   border: 1px solid transparent;
   transition: 0.15s;
   width: fit-content;
+  user-select: none;
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;

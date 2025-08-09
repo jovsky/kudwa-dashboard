@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { FcRefresh } from "react-icons/fc"
 import { IoMdRefresh } from "react-icons/io"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -32,10 +31,18 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <PageTitle title={pageDefs.dashboard.name} />
-      <div className="flex items-center w-full border-b border-gray-200 gap-10">
-        <PeriodSelector period={selectedPeriod} onPeriodChange={setSelectedPeriod} />
-        <Button size="md" icon={IoMdRefresh} onClick={() => dispatch(fetchDashboardData(selectedPeriod))} variant="success" />
+      <div className="flex items-center w-full border-b border-gray-200 gap-10 py-4">
+        <PageTitle title={pageDefs.dashboard.name} />
+        <div className="flex items-center gap-10 ml-auto">
+          <PeriodSelector period={selectedPeriod} onPeriodChange={setSelectedPeriod} disabled={loading} />
+          <Button
+            size="md"
+            icon={IoMdRefresh}
+            onClick={() => dispatch(fetchDashboardData(selectedPeriod))}
+            variant="success"
+            disabled={loading}
+          />
+        </div>
       </div>
       <div className="flex-1">{loading ? <LoadingScreen /> : data ? <DashboardContent dashboardData={data} /> : null}</div>
     </>

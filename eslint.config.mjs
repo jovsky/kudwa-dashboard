@@ -42,9 +42,9 @@ const eslintConfig = [
       ...tanstackQueryPlugin.configs.recommended.rules,
 
       // TypeScript rules
-      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-unused-expression": "off",
-      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-explicit-any": "error",
 
       // Prettier integration
       "prettier/prettier": "error",

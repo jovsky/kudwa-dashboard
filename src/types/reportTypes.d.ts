@@ -56,7 +56,7 @@ export interface PnlKeyMetrics {
 
 export interface PnlKeyMetricsField {
   id: number
-  topLevelFieldId: number
+  topLevelFieldId: number | null
   name: string
   code: null
   uniqueReference: UniqueReference
@@ -82,7 +82,7 @@ export interface PnlKeyMetricsField {
 
 export interface ActualDatum {
   id: number
-  topLevelFieldId: null
+  topLevelFieldId: number | null
   fieldId: number
   value: number[]
   codatAccountId: null | string
@@ -95,23 +95,13 @@ export interface ActualDatum {
 type Source = "model" | "quickbooksonlinesandbox"
 
 export interface UniqueReference {
-  sheetType: SheetType
+  sheetType: string
   integrationSourceId: number | null
-  sourceType: SourceType
+  sourceType: "Account" | "Report"
   accountId: null | string
   accountName: null | string
   metric: boolean
 }
-
-export enum SheetType {
-  PnL = "PnL",
-}
-
-export enum SourceType {
-  Account = "Account",
-  Report = "Report",
-}
-
 export interface ProfitnLoss {
   id: number
   financialReportId: number
@@ -137,7 +127,7 @@ export interface ProfitnLoss {
 
 export interface PurpleField {
   id: number
-  topLevelFieldId: number
+  topLevelFieldId: number | null
   name: string
   code: null
   uniqueReference: UniqueReference
@@ -164,7 +154,7 @@ export interface PurpleField {
 
 export interface ProfitnLossField {
   id: number
-  topLevelFieldId: number
+  topLevelFieldId: number | null
   name: string
   code: null
   uniqueReference: UniqueReference
