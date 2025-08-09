@@ -44,7 +44,7 @@ const Dashboard: React.FC = () => {
           />
         </div>
       </div>
-      <div className="flex-1">{loading ? <LoadingScreen /> : data ? <DashboardContent dashboardData={data} /> : null}</div>
+      {loading ? <LoadingScreen /> : data ? <DashboardContent dashboardData={data} /> : null}
     </>
   )
 }

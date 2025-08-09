@@ -7,7 +7,7 @@ import BarChart from "../Charts/BarChart"
 
 const DashboardContent: React.FC<{ dashboardData: DashboardData }> = ({ dashboardData }) => {
   return (
-    <div style={{ padding: "2rem" }}>
+    <div className="p-2 overflow-y-auto">
       <div className="p-4 rounded-lg mb-6">
         <h2 className="text-xl font-semibold mb-2">Dashboard Overview</h2>
         <div className="space-y-2">

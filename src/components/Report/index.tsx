@@ -27,7 +27,7 @@ const Report: React.FC = () => {
       <div className="flex items-center w-full border-b border-gray-200 gap-10 py-4">
         <PageTitle title={pageDefs.report.name} />
       </div>
-      <div className="flex-1">{loading ? <LoadingScreen /> : data ? <ReportContent reportData={data} /> : null}</div>
+      {loading ? <LoadingScreen /> : data ? <ReportContent reportData={data} /> : null}
     </>
   )
 }
