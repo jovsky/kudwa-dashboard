@@ -1,5 +1,7 @@
-import { FC, memo, useMemo } from "react"
+import { FC, useMemo } from "react"
 import { CartesianGrid, Line, LineChart as RLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+
+import sumNumbers from "@/utils/sumNumbers"
 
 import ChartTooltip from "./ChartTooltip"
 
@@ -10,16 +12,6 @@ interface LineChartProps {
   lineColor: string
   formatFn?: (value: number) => string
 }
-
-const TooltipContent: FC<{ xDesc: string; Value: string }> = memo(({ xDesc, Value }) => {
-  return (
-    <div className="bg-white p-2 rounded shadow">
-      <p className="text-sm font-bold">{xDesc}</p>
-      <p className="text-xs">Value: {Value}</p>
-    </div>
-  )
-})
-TooltipContent.displayName = "TooltipContent"
 
 const LineChart: FC<LineChartProps> = ({
   chartName,
@@ -36,9 +28,7 @@ const LineChart: FC<LineChartProps> = ({
   }, [chartData])
 
   // Sum all Y values to get the total items
-  const totalItems = useMemo(() => {
-    return chartData.reduce((sum, item) => sum + item.Value, 0)
-  }, [chartData])
+  const totalItems = useMemo(() => sumNumbers(chartData, "Value"), [chartData])
 
   return (
     <div className="w-full">
@@ -62,7 +52,7 @@ const LineChart: FC<LineChartProps> = ({
             }}
             tickFormatter={formatFn}
           />
-          <Tooltip content={(val) => <ChartTooltip val={val} descKey="xDesc" valueKey="Value" />} />
+          <Tooltip content={(val) => <ChartTooltip val={val} descKey="xDesc" valueKey="Value" formatFn={formatFn} />} />
           <Line
             dataKey="Value"
             stroke={lineColor}

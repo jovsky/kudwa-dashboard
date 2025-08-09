@@ -23,7 +23,7 @@ const colors = [
 
 const PieChart: FC<PieChartProps> = ({ chartData, formatFn = (value) => value.toString() }) => {
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width={600} height={300}>
       <RPieChart>
         <Pie
           data={chartData}
@@ -41,7 +41,7 @@ const PieChart: FC<PieChartProps> = ({ chartData, formatFn = (value) => value.to
             <Cell key={entry.name} fill={colors[idx % colors.length]} />
           ))}
         </Pie>
-        <Tooltip content={(val) => <ChartTooltip val={val} descKey="name" valueKey="value" />} />
+        <Tooltip content={(val) => <ChartTooltip val={val} descKey="name" valueKey="value" formatFn={formatFn} />} />
       </RPieChart>
     </ResponsiveContainer>
   )

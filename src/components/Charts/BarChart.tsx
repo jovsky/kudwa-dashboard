@@ -1,5 +1,7 @@
-import { FC, memo, useMemo } from "react"
+import { FC, useMemo } from "react"
 import { Bar, BarChart as RBarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+
+import sumNumbers from "@/utils/sumNumbers"
 
 import ChartTooltip from "./ChartTooltip"
 
@@ -10,16 +12,6 @@ interface BarChartProps {
   barColor: string
   formatFn?: (value: number) => string
 }
-
-const TooltipContent: FC<{ xDesc: string; Value: string }> = memo(({ xDesc, Value }) => {
-  return (
-    <div className="bg-white p-2 rounded shadow">
-      <p className="text-sm font-bold">{xDesc}</p>
-      <p className="text-xs">Value: {Value}</p>
-    </div>
-  )
-})
-TooltipContent.displayName = "TooltipContent"
 
 const BarChart: FC<BarChartProps> = ({
   chartName,
@@ -36,12 +28,10 @@ const BarChart: FC<BarChartProps> = ({
   }, [chartData])
 
   // Sum all Y values to get the total items
-  const totalItems = useMemo(() => {
-    return chartData.reduce((sum, item) => sum + item.Value, 0)
-  }, [chartData])
+  const totalItems = useMemo(() => sumNumbers(chartData, "Value"), [chartData])
 
   return (
-    <div className="w-full">
+    <div className="flex flex-col w-full justify-end">
       <div className="w-full">
         <p className="mt-2 items-center text-center text-lg font-bold uppercase">{chartName}</p>
         <p className="mt-1 text-center">Total: {formatFn(totalItems)}</p>
@@ -62,7 +52,7 @@ const BarChart: FC<BarChartProps> = ({
             }}
             tickFormatter={formatFn}
           />
-          <Tooltip content={(val) => <ChartTooltip val={val} descKey="xDesc" valueKey="Value" />} />
+          <Tooltip content={(val) => <ChartTooltip val={val} descKey="xDesc" valueKey="Value" formatFn={formatFn} />} />
           <Bar dataKey="Value" fill={barColor} stackId="a" isAnimationActive={true} />
         </RBarChart>
       </ResponsiveContainer>
