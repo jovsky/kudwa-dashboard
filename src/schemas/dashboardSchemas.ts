@@ -5,24 +5,24 @@ import { ChartType, Period } from "@/types/dashboardTypes"
 const chatTypeValues: ChartType[] = ["line", "donut", "bar", "pie", "columnStacked"] as const
 const periodValues: Period[] = ["monthly", "quarterly", "yearly"] as const
 
-export const CashAtBankSchema = z.object({
+export const ChartInfoSchema = z.object({
   chartType: z.enum(chatTypeValues),
   name: z.string(),
   values: z.array(z.number()),
 })
 
-export const SplitSchema = z.object({
+export const SingleChartInfo = z.object({
   chartType: z.enum(chatTypeValues),
   name: z.string(),
   values: z.number(),
 })
 
 export const ChartsSchema = z.object({
-  cashAtBank: z.array(CashAtBankSchema),
-  expenseSplit: z.array(SplitSchema),
-  indirectCashflow: z.array(CashAtBankSchema.or(z.null())),
-  totalRevenuesSplit: z.array(SplitSchema),
-  profitLossOverview: z.array(CashAtBankSchema),
+  cashAtBank: z.array(ChartInfoSchema),
+  expenseSplit: z.array(SingleChartInfo),
+  indirectCashflow: z.array(ChartInfoSchema.or(z.null())),
+  totalRevenuesSplit: z.array(SingleChartInfo),
+  profitLossOverview: z.array(ChartInfoSchema),
   salariesSplit: z.array(z.unknown()),
   ManpowerOperatingExpenses: z.array(z.unknown()),
 })

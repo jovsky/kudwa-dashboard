@@ -17,22 +17,22 @@ export interface MainDashboard {
 }
 
 export interface Charts {
-  cashAtBank: CashAtBank[]
-  expenseSplit: Split[]
-  indirectCashflow: Array<CashAtBank | null>
-  totalRevenuesSplit: Split[]
-  profitLossOverview: CashAtBank[]
+  cashAtBank: ChartInfo[]
+  expenseSplit: SingleChartInfo[]
+  indirectCashflow: (ChartInfo | null)[]
+  totalRevenuesSplit: SingleChartInfo[]
+  profitLossOverview: ChartInfo[]
   salariesSplit: unknown[]
   ManpowerOperatingExpenses: unknown[]
 }
 
-export interface CashAtBank {
+export interface ChartInfo {
   chartType: ChartType
   name: string
   values: number[]
 }
 
-export interface Split {
+export interface SingleChartInfo {
   chartType: ChartType
   name: string
   values: number
@@ -40,10 +40,10 @@ export interface Split {
 
 export interface MainDashboardKPIs {
   topKPIs: TopKPI[]
-  KPIs: Kpi[]
+  KPIs: KPI[]
 }
 
-export interface Kpi {
+export interface KPI {
   name: string
   value: number
   mom: number

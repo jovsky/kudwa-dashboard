@@ -87,10 +87,6 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-@utility container {
-  @apply flex flex-col mx-auto h-screen overflow-hidden px-10 py-6;
-}
-
 @utility btn-base {
   display: inline-flex;
   align-items: center;
@@ -183,4 +179,8 @@ body {
     border-color: var(--kudwa-blue-300);
     color: var(--kudwa-light);
   }
+}
+
+.recharts-responsive-container * {
+  outline: none !important;
 }

@@ -1,6 +1,9 @@
 import React from "react"
 
 import { DashboardData } from "@/types/dashboardTypes"
+import formatCurrency from "@/utils/formatCurrency"
+
+import BarChart from "../Charts/BarChart"
 
 const DashboardContent: React.FC<{ dashboardData: DashboardData }> = ({ dashboardData }) => {
   return (
@@ -34,6 +37,22 @@ const DashboardContent: React.FC<{ dashboardData: DashboardData }> = ({ dashboar
           <p>{dashboardData.mainDashboard.charts.totalRevenuesSplit.length} sources</p>
         </div>
       </div>
+
+      {dashboardData.mainDashboard.charts.indirectCashflow.map((chart, index) =>
+        chart ? (
+          <BarChart
+            key={index}
+            chartName={chart.name}
+            chartData={chart.values.map((value, index) => ({
+              xDesc: dashboardData.mainDashboard.dateArray[index],
+              Value: value,
+            }))}
+            yAxisDescription={"$ Value"}
+            barColor={"#ff0000"}
+            formatFn={(value) => formatCurrency(value, 0)}
+          />
+        ) : null,
+      )}
 
       <div>
         <summary className="cursor-pointer text-kudwa-dark font-medium">View Raw Data</summary>
