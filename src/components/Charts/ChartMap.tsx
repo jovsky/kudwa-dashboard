@@ -3,15 +3,15 @@ import { FC, JSX } from "react"
 import {
   BarChartInfo,
   ChartInfoUnion,
+  ColumnStackedChartInfo,
+  DonutChartInfo,
   LineChartInfo,
-  // ColumnStackedChartInfo,
-  // DonutChartInfo,
-  // LineChartInfo,
-  // PieChartInfo,
+  PieChartInfo,
 } from "@/types/dashboardTypes"
 import formatCurrency from "@/utils/formatCurrency"
 
 import BarChart from "./BarChart"
+import DonutChart from "./DonutChart"
 import LineChart from "./LineChart"
 
 interface ChartMapProps {
@@ -19,19 +19,20 @@ interface ChartMapProps {
   dateArray: string[]
 }
 
+const colors = ["var(--kudwa-yellow)", "var(--kudwa-blue)", "var(--kudwa-brown)"]
+
 const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
   if (!chartInfo.length) {
     return <span>No chart data available</span>
   }
 
   const lineChartInfo: LineChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "line")
-  // const donutChartInfo: DonutChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "donut")
+  const donutChartInfo: DonutChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "donut")
   const barChartInfo: BarChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "bar")
-  // const pieChartInfo: PieChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "pie")
-  // const columnStackedChartInfo: ColumnStackedChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "columnStacked")
-
-  // a dynamic way to get colors from --kudwa-brown, --kudwa-yellow and --kudwa-blue
-  const colors = ["var(--kudwa-yellow)", "var(--kudwa-blue)", "var(--kudwa-brown)"]
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const pieChartInfo: PieChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "pie")
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const columnStackedChartInfo: ColumnStackedChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "columnStacked")
 
   const Charts: JSX.Element[] = []
 
@@ -75,6 +76,17 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
       ),
     )
     Charts.push(...LineCharts)
+  }
+
+  if (donutChartInfo.length) {
+    Charts.push(
+      <DonutChart
+        chartData={donutChartInfo.map((chart) => ({
+          name: chart.name,
+          value: chart.values,
+        }))}
+      />,
+    )
   }
 
   if (!Charts.length) {

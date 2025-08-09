@@ -1,0 +1,49 @@
+import { FC } from "react"
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts"
+
+import ChartTooltip from "./ChartTooltip"
+
+interface DonutChartProps {
+  chartData: Array<{ name: string; value: number }>
+  formatFn?: (value: number) => string
+}
+
+const colors = [
+  "var(--kudwa-blue-200)",
+  "var(--kudwa-yellow-400)",
+  "var(--kudwa-brown-200)",
+  "var(--kudwa-blue)",
+  "var(--kudwa-yellow-500)",
+  "var(--kudwa-brown)",
+  "var(--kudwa-blue-500)",
+  "var(--kudwa-yellow-600)",
+  "var(--kudwa-brown-500)",
+]
+
+const DonutChart: FC<DonutChartProps> = ({ chartData, formatFn = (value) => value.toString() }) => {
+  return (
+    <ResponsiveContainer width="100%" height={300}>
+      <PieChart>
+        <Pie
+          data={chartData}
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy="50%"
+          innerRadius={70}
+          outerRadius={110}
+          paddingAngle={2}
+          label={({ name, value }) => `${name}: ${formatFn(Number(value))}`}
+          isAnimationActive={false}
+        >
+          {chartData.map((entry, idx) => (
+            <Cell key={entry.name} fill={colors[idx % colors.length]} />
+          ))}
+        </Pie>
+        <Tooltip content={(val) => <ChartTooltip val={val} />} />
+      </PieChart>
+    </ResponsiveContainer>
+  )
+}
+
+export default DonutChart
