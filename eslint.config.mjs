@@ -58,6 +58,9 @@ const eslintConfig = [
       // Import sorting rules
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
+
+      // Others
+      "import/no-anonymous-default-export": "off",
     },
     settings: {
       react: {

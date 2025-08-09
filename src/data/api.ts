@@ -25,7 +25,7 @@ export interface ApiError {
  */
 const simulateDelay = (ms: number = 2000) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const api = {
+export default {
   /**
    * Fetch dashboard data for a specific period
    */
@@ -190,5 +190,3 @@ const api = {
     }
   },
 }
-
-export default api
