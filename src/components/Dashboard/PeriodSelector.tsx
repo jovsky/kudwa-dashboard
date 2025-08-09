@@ -14,9 +14,7 @@ const PeriodSelector: FC<{ period: Period; onPeriodChange: (period: Period) => v
             <button
               key={p}
               onClick={() => onPeriodChange(p)}
-              className={`px-4 py-2 rounded transition-colors ${
-                p === period ? "bg-kudwa-brown text-white" : " hover:bg-kudwa-light-brown hover:text-white "
-              }`}
+              className={`btn-base btn-md ${p === period ? "btn-secondary" : "btn-primary"}`}
             >
               {p.charAt(0).toUpperCase() + p.slice(1)}
             </button>
