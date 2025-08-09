@@ -29,7 +29,7 @@ const SideBar: FC = () => {
 
   return (
     <div
-      className={`flex flex-col p-4 shadow-soft h-full bg-foreground items-center ${transition} ${isOpen ? "w-52" : "w-[70px]"}`}
+      className={`flex flex-col p-4 shadow-soft h-full bg-kudwa-brown-100 items-center ${transition} ${isOpen ? "w-52" : "w-[70px]"}`}
     >
       <div className="flex w-full justify-between items-center mb-10">
         <div
@@ -37,7 +37,7 @@ const SideBar: FC = () => {
         >
           Menu
         </div>
-        <Button size="md" icon={RiMenuLine} onClick={() => dispatch(toggleSidebar())} />
+        <Button size="md" icon={RiMenuLine} onClick={() => dispatch(toggleSidebar())} className="border-kudwa-brown-200" />
       </div>
       <div className={`flex flex-col gap-3 items-start w-full justify-center`}>
         {Object.values(pageDefs).map((page) => (
@@ -57,8 +57,8 @@ const SideBar: FC = () => {
               </span>
             }
             size={"md"}
-            variant={!page.route.includes(currentRoute) ? "primary" : "secondary"}
-            className={`border-transparent! ${isOpen ? "w-full gap-2" : "w-fit gap-0"}`}
+            variant={page.route.includes(currentRoute) ? "tertiary" : "primary"}
+            className={isOpen ? "w-full gap-2 border-transparent!" : "w-fit gap-0"}
             onClick={changeRoute.bind(null, page.route)}
           />
         ))}

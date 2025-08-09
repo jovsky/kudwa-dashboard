@@ -6,13 +6,24 @@ interface ButtonProps {
   text?: string | React.ReactNode
   onClick?: () => void
   size?: "sm" | "md"
-  variant?: "primary" | "secondary" | "ghost" | "danger"
+  variant?: "primary" | "secondary" | "tertiary" | "ghost" | "danger"
   disabled?: boolean
   className?: string
-  textClassName?: string
   "aria-label"?: string
   iconPosition?: "left" | "right"
   style?: React.CSSProperties
+}
+
+const sizeClassOptions = {
+  sm: "btn-sm",
+  md: "btn-md",
+}
+const variantClassOptions = {
+  primary: "btn-primary",
+  secondary: "btn-secondary",
+  tertiary: "btn-tertiary",
+  ghost: "btn-ghost",
+  danger: "btn-danger",
 }
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
@@ -23,25 +34,18 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   variant = "primary",
   disabled = false,
   className = "",
-  textClassName = "",
   "aria-label": ariaLabel,
   iconPosition = "left",
   style,
 }) => {
-  const sizeClass = size === "sm" ? "btn-sm" : "btn-md"
-  const variantClass = variant === "secondary" ? "btn-secondary" : variant === "ghost" ? "btn-ghost" : "btn-primary"
-
-  const rightPaddingAdjustment = text && (!Icon || iconPosition === "left") ? (size === "sm" ? "pr-1.5" : "pr-2") : ""
-
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       aria-label={ariaLabel}
       className={`btn-base
-        ${sizeClass} 
-        ${variantClass} 
-        ${rightPaddingAdjustment} 
+        ${sizeClassOptions[size]} 
+        ${variantClassOptions[variant]} 
         ${className}`}
       style={style}
     >

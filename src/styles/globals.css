@@ -2,9 +2,6 @@
 
 @layer base {
   :root {
-    --background: #f6f2f0;
-    --foreground: white;
-
     /* Kudwa Brand Colors */
     --kudwa-brown: #b09280;
     --kudwa-yellow: #eae62f;
@@ -12,41 +9,80 @@
     --kudwa-dark: #262626;
     --kudwa-light: #fbfafa;
 
-    /* Light versions */
-    --kudwa-light-brown: color-mix(in srgb, var(--kudwa-brown) 50%, white);
-    --kudwa-light-yellow: color-mix(in srgb, var(--kudwa-yellow) 50%, white);
-    --kudwa-light-blue: color-mix(in srgb, var(--kudwa-blue) 50%, white);
+    --kudwa-brown-100: color-mix(in srgb, var(--kudwa-brown) 20%, white);
+    --kudwa-brown-200: color-mix(in srgb, var(--kudwa-brown) 40%, white);
+    --kudwa-brown-300: color-mix(in srgb, var(--kudwa-brown) 60%, white);
+    --kudwa-brown-400: color-mix(in srgb, var(--kudwa-brown) 80%, white);
+    --kudwa-brown-500: var(--kudwa-brown);
+    --kudwa-brown-600: color-mix(in srgb, var(--kudwa-brown) 80%, black);
+    --kudwa-brown-700: color-mix(in srgb, var(--kudwa-brown) 60%, black);
+    --kudwa-brown-800: color-mix(in srgb, var(--kudwa-brown) 40%, black);
+    --kudwa-brown-900: color-mix(in srgb, var(--kudwa-brown) 20%, black);
 
-    /* Dark versions */
-    --kudwa-dark-brown: color-mix(in srgb, var(--kudwa-brown) 80%, black);
-    --kudwa-dark-yellow: color-mix(in srgb, var(--kudwa-yellow) 80%, black);
-    --kudwa-dark-blue: color-mix(in srgb, var(--kudwa-blue) 80%, black);
+    --kudwa-blue-100: color-mix(in srgb, var(--kudwa-blue) 20%, white);
+    --kudwa-blue-200: color-mix(in srgb, var(--kudwa-blue) 40%, white);
+    --kudwa-blue-300: color-mix(in srgb, var(--kudwa-blue) 60%, white);
+    --kudwa-blue-400: color-mix(in srgb, var(--kudwa-blue) 80%, white);
+    --kudwa-blue-500: var(--kudwa-blue);
+    --kudwa-blue-600: color-mix(in srgb, var(--kudwa-blue) 80%, black);
+    --kudwa-blue-700: color-mix(in srgb, var(--kudwa-blue) 60%, black);
+    --kudwa-blue-800: color-mix(in srgb, var(--kudwa-blue) 40%, black);
+    --kudwa-blue-900: color-mix(in srgb, var(--kudwa-blue) 20%, black);
+
+    --kudwa-yellow-100: color-mix(in srgb, var(--kudwa-yellow) 20%, white);
+    --kudwa-yellow-200: color-mix(in srgb, var(--kudwa-yellow) 40%, white);
+    --kudwa-yellow-300: color-mix(in srgb, var(--kudwa-yellow) 60%, white);
+    --kudwa-yellow-400: color-mix(in srgb, var(--kudwa-yellow) 80%, white);
+    --kudwa-yellow-500: var(--kudwa-yellow);
+    --kudwa-yellow-600: color-mix(in srgb, var(--kudwa-yellow) 80%, black);
+    --kudwa-yellow-700: color-mix(in srgb, var(--kudwa-yellow) 60%, black);
+    --kudwa-yellow-800: color-mix(in srgb, var(--kudwa-yellow) 40%, black);
+    --kudwa-yellow-900: color-mix(in srgb, var(--kudwa-yellow) 20%, black);
   }
 }
 
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --color-kudwa-brown: var(--kudwa-brown);
   --color-kudwa-yellow: var(--kudwa-yellow);
+  --color-kudwa-brown: var(--kudwa-brown);
   --color-kudwa-blue: var(--kudwa-blue);
   --color-kudwa-dark: var(--kudwa-dark);
   --color-kudwa-light: var(--kudwa-light);
 
-  --color-kudwa-light-brown: var(--kudwa-light-brown);
-  --color-kudwa-light-yellow: var(--kudwa-light-yellow);
-  --color-kudwa-light-blue: var(--kudwa-light-blue);
+  --color-kudwa-brown-100: var(--kudwa-brown-100);
+  --color-kudwa-brown-200: var(--kudwa-brown-200);
+  --color-kudwa-brown-300: var(--kudwa-brown-300);
+  --color-kudwa-brown-400: var(--kudwa-brown-400);
+  --color-kudwa-brown-500: var(--kudwa-brown-500);
+  --color-kudwa-brown-600: var(--kudwa-brown-600);
+  --color-kudwa-brown-700: var(--kudwa-brown-700);
+  --color-kudwa-brown-800: var(--kudwa-brown-800);
+  --color-kudwa-brown-900: var(--kudwa-brown-900);
 
-  --color-kudwa-dark-brown: var(--kudwa-dark-brown);
-  --color-kudwa-dark-yellow: var(--kudwa-dark-yellow);
-  --color-kudwa-dark-blue: var(--kudwa-dark-blue);
+  --color-kudwa-blue-100: var(--kudwa-blue-100);
+  --color-kudwa-blue-200: var(--kudwa-blue-200);
+  --color-kudwa-blue-300: var(--kudwa-blue-300);
+  --color-kudwa-blue-400: var(--kudwa-blue-400);
+  --color-kudwa-blue-500: var(--kudwa-blue-500);
+  --color-kudwa-blue-600: var(--kudwa-blue-600);
+  --color-kudwa-blue-700: var(--kudwa-blue-700);
+  --color-kudwa-blue-800: var(--kudwa-blue-800);
+  --color-kudwa-blue-900: var(--kudwa-blue-900);
 
-  --shadow-soft: 5px 5px 3px 0px rgba(0, 0, 0, 0.1);
+  --color-kudwa-yellow-100: var(--kudwa-yellow-100);
+  --color-kudwa-yellow-200: var(--kudwa-yellow-200);
+  --color-kudwa-yellow-300: var(--kudwa-yellow-300);
+  --color-kudwa-yellow-400: var(--kudwa-yellow-400);
+  --color-kudwa-yellow-500: var(--kudwa-yellow-500);
+  --color-kudwa-yellow-600: var(--kudwa-yellow-600);
+  --color-kudwa-yellow-700: var(--kudwa-yellow-700);
+  --color-kudwa-yellow-800: var(--kudwa-yellow-800);
+  --color-kudwa-yellow-900: var(--kudwa-yellow-900);
+
+  --shadow-soft: 3px 3px 3px 0px rgba(0, 0, 0, 0.1);
 }
 
 body {
-  background: var(--background);
+  background: var(--kudwa-light);
   color: var(--kudwa-dark);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
@@ -99,20 +135,29 @@ body {
 }
 
 @utility btn-primary {
-  background-color: var(--kudwa-light);
-  border: 1px solid var(--kudwa-light-brown);
-  color: var(--kudwa-brown);
+  background-color: var(--kudwa-brown-100);
+  color: var(--kudwa-brown-400);
   &:hover {
-    background-color: var(--kudwa-light-brown);
+    background-color: var(--kudwa-brown-300);
+    border-color: var(--kudwa-brown-300);
     color: var(--kudwa-light);
   }
 }
 
 @utility btn-secondary {
+  background-color: var(--kudwa-brown-300);
+  color: var(--kudwa-light);
+  &:hover {
+    background-color: var(--kudwa-brown-400);
+  }
+}
+
+@utility btn-tertiary {
   background-color: var(--kudwa-brown);
   color: var(--kudwa-light);
   &:hover {
-    background-color: var(--kudwa-light-brown);
+    background-color: var(--kudwa-brown-300);
+    border-color: var(--kudwa-brown-100);
   }
 }
 

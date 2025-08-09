@@ -25,7 +25,7 @@ const ReportContent: React.FC<{ reportData: ReportData }> = ({ reportData }) => 
       </div>
 
       <details className="mt-6">
-        <summary className="cursor-pointer text-kudwa-blue font-medium">View Raw Data</summary>
+        <summary className="cursor-pointer text-kudwa-dark font-medium">View Raw Data</summary>
         <pre className="mt-2 p-4 bg-gray-100 rounded text-xs overflow-auto max-h-96 text-black">
           {JSON.stringify(reportData, null, 2)}
         </pre>

@@ -21,22 +21,22 @@ const DashboardContent: React.FC<{ dashboardData: DashboardData }> = ({ dashboar
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-        <div className="bg-kudwa-yellow/20 p-4 rounded-lg">
+        <div className="bg-kudwa-yellow-200 p-4 rounded-lg">
           <h3 className="font-semibold mb-2">Cash at Bank</h3>
           <p>{dashboardData.mainDashboard.charts.cashAtBank.length} data series</p>
         </div>
-        <div className="bg-kudwa-blue/20 p-4 rounded-lg">
+        <div className="bg-kudwa-blue-200 p-4 rounded-lg">
           <h3 className="font-semibold mb-2">Expense Split</h3>
           <p>{dashboardData.mainDashboard.charts.expenseSplit.length} categories</p>
         </div>
-        <div className="bg-kudwa-brown/20 p-4 rounded-lg">
+        <div className="bg-kudwa-brown-200 p-4 rounded-lg">
           <h3 className="font-semibold mb-2">Revenue Split</h3>
           <p>{dashboardData.mainDashboard.charts.totalRevenuesSplit.length} sources</p>
         </div>
       </div>
 
       <div>
-        <summary className="cursor-pointer text-kudwa-blue font-medium">View Raw Data</summary>
+        <summary className="cursor-pointer text-kudwa-dark font-medium">View Raw Data</summary>
         <pre className="mt-2 p-4 bg-gray-100 rounded text-xs overflow-auto max-h-96 text-black">
           {JSON.stringify(dashboardData, null, 2)}
         </pre>

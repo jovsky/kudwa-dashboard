@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC } from "react"
 
 import { Period } from "@/types/dashboardTypes"
 
@@ -14,7 +14,7 @@ const PeriodSelector: FC<{ period: Period; onPeriodChange: (period: Period) => v
             <button
               key={p}
               onClick={() => onPeriodChange(p)}
-              className={`btn-base btn-md ${p === period ? "btn-secondary" : "btn-primary"}`}
+              className={`btn-base btn-md ${p === period ? "btn-tertiary" : "btn-primary"}`}
             >
               {p.charAt(0).toUpperCase() + p.slice(1)}
             </button>
