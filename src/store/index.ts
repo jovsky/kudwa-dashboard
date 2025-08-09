@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit"
 
+import { dashboardReducer } from "./slices/dashboardSlice"
 import { sideBarReducer } from "./slices/sideBarSlice"
 
 export const store = configureStore({
   reducer: {
     sideBar: sideBarReducer,
+    dashboard: dashboardReducer,
   },
 })
 

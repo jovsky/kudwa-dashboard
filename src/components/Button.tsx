@@ -6,7 +6,7 @@ interface ButtonProps {
   text?: string | React.ReactNode
   onClick?: () => void
   size?: "sm" | "md"
-  variant?: "primary" | "secondary" | "tertiary" | "ghost" | "danger"
+  variant?: "primary" | "secondary" | "tertiary" | "ghost" | "danger" | "success"
   disabled?: boolean
   className?: string
   "aria-label"?: string
@@ -24,6 +24,7 @@ const variantClassOptions = {
   tertiary: "btn-tertiary",
   ghost: "btn-ghost",
   danger: "btn-danger",
+  success: "btn-success",
 }
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = ({

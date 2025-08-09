@@ -32,7 +32,7 @@ export const Profile: React.FC<ProfileProps> = ({ showProfileData = true, size =
     >
       {showProfileData && (
         <div className="text-right">
-          <p className={`font-medium text-kudwa-brown-600 ${nameSize}`}>Hello, User</p>
+          <p className={`font-medium text-kudwa-dark ${nameSize}`}>Hello, User</p>
           <p className="text-xs text-gray-500">user@kudwa.com</p>
         </div>
       )}

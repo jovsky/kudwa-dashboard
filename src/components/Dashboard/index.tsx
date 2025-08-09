@@ -1,11 +1,17 @@
 "use client"
-import { useQuery } from "@tanstack/react-query"
-import React, { useState } from "react"
+
+import React, { useEffect, useState } from "react"
+import { FcRefresh } from "react-icons/fc"
+import { IoMdRefresh } from "react-icons/io"
+import { useDispatch, useSelector } from "react-redux"
 
 import pageDefs from "@/app/pageDefs"
-import api from "@/data/api"
+import type { AppDispatch } from "@/store"
+import { RootState } from "@/store"
+import { fetchDashboardData } from "@/store/slices/dashboardSlice"
 import { Period } from "@/types/dashboardTypes"
 
+import Button from "../Button"
 import LoadingScreen from "../LoadingScreen"
 import PageTitle from "../PageTitle"
 import DashboardContent from "./DashboardContent"
@@ -13,27 +19,25 @@ import PeriodSelector from "./PeriodSelector"
 
 const Dashboard: React.FC = () => {
   const [selectedPeriod, setSelectedPeriod] = useState<Period>("monthly")
+  const dispatch = useDispatch<AppDispatch>()
+  const { data, loading, error } = useSelector((state: RootState) => state.dashboard)
 
-  const {
-    data: apiResponse,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ["dashboardData", selectedPeriod],
-    queryFn: () => api.getDashboardData(selectedPeriod),
-  })
+  useEffect(() => {
+    dispatch(fetchDashboardData(selectedPeriod))
+  }, [dispatch, selectedPeriod])
 
   if (error) {
-    throw new Error(`Error fetching dashboard data: ${error.message}`)
+    throw new Error(`Error fetching dashboard data: ${error}`)
   }
 
   return (
     <>
       <PageTitle title={pageDefs.dashboard.name} />
-      <PeriodSelector period={selectedPeriod} onPeriodChange={setSelectedPeriod} />
-      <div className="flex-1">
-        {isLoading ? <LoadingScreen /> : apiResponse ? <DashboardContent dashboardData={apiResponse.data} /> : null}
+      <div className="flex items-center w-full border-b border-gray-200 gap-10">
+        <PeriodSelector period={selectedPeriod} onPeriodChange={setSelectedPeriod} />
+        <Button size="md" icon={IoMdRefresh} onClick={() => dispatch(fetchDashboardData(selectedPeriod))} variant="success" />
       </div>
+      <div className="flex-1">{loading ? <LoadingScreen /> : data ? <DashboardContent dashboardData={data} /> : null}</div>
     </>
   )
 }

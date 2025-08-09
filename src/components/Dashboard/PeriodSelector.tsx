@@ -6,7 +6,7 @@ const periods: Period[] = ["monthly", "quarterly", "yearly"]
 
 const PeriodSelector: FC<{ period: Period; onPeriodChange: (period: Period) => void }> = ({ period, onPeriodChange }) => {
   return (
-    <div className="border-b border-gray-200 px-6 py-4">
+    <div className="px-6 py-4">
       <div className="flex items-center gap-4">
         <h2 className="text-lg font-semibold text-kudwa-dark">Period:</h2>
         <div className="flex gap-2">

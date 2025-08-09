@@ -35,7 +35,7 @@ const SideBar: FC = () => {
         <div
           className={`flex items-center h-10 text-lg font-semibold text-kudwa-dark ${transition} ${isOpen ? "opacity-100 max-w-full" : "opacity-0 max-w-0 pointer-events-none"}`}
         >
-          Menu
+          Navigation
         </div>
         <Button size="md" icon={RiMenuLine} onClick={() => dispatch(toggleSidebar())} className="border-kudwa-brown-200" />
       </div>

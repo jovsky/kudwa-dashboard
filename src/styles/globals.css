@@ -87,6 +87,10 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+@utility container {
+  @apply flex flex-col mx-auto h-screen overflow-hidden px-10 py-6;
+}
+
 @utility btn-base {
   display: inline-flex;
   align-items: center;
@@ -162,9 +166,20 @@ body {
 }
 
 @utility btn-ghost {
-  background-color: transparent;
+  background-color: #eee;
   color: var(--kudwa-dark);
   &:hover {
-    background-color: var(--kudwa-light);
+    background-color: #aaa;
+    color: var(--kudwa-light);
+  }
+}
+
+@utility btn-success {
+  background-color: var(--kudwa-blue-100);
+  color: var(--kudwa-blue-400);
+  &:hover {
+    background-color: var(--kudwa-blue-300);
+    border-color: var(--kudwa-blue-300);
+    color: var(--kudwa-light);
   }
 }

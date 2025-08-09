@@ -16,7 +16,7 @@ export default function PagesLayout({ children }: { children: React.ReactNode })
       <CustomErrorBoundary>
         <QueryClientProvider client={queryClient}>
           <Navigation>
-            <div className="container flex flex-col mx-auto p-4 h-screen overflow-hidden">{children}</div>
+            <div className="container">{children}</div>
           </Navigation>
         </QueryClientProvider>
       </CustomErrorBoundary>
