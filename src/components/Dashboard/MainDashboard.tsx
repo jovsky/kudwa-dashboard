@@ -47,10 +47,10 @@ const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashbo
         </div>
       </div>
 
-      <Collapsible togglerText={"Charts"}>
+      <Collapsible togglerText={"Charts"} togglerClass="uppercase">
         <div className="flex flex-col gap-4">
           {series.map(({ name, data }) => (
-            <Collapsible key={name} togglerText={name}>
+            <Collapsible key={name} togglerText={name} complementaryText={`(${data.length} metrics)`}>
               <ChartMap chartInfo={data} dateArray={mainDashboard.dateArray} />
             </Collapsible>
           ))}

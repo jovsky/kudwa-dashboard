@@ -9,7 +9,7 @@ const Navigation: FC<PropsWithChildren> = ({ children }) => {
       <div className="z-2">
         <SideBar />
       </div>
-      <div className="flex flex-col h-full w-full z-1">
+      <div className="flex flex-col h-full w-full z-1 overflow-hidden">
         <TopBar />
         <div className="flex h-full w-full bg-background overflow-hidden">{children}</div>
       </div>

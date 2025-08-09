@@ -4,16 +4,16 @@ import { IconType } from "react-icons/lib"
 
 interface CollapseProps extends PropsWithChildren {
   togglerText: string
+  togglerClass?: string
   togglerIcon?: IconType
-  togglerProps?: React.ButtonHTMLAttributes<HTMLButtonElement>
   complementaryText?: string
   collapseProps?: React.HTMLAttributes<HTMLDivElement>
 }
 
 const Collapsible: FC<CollapseProps> = ({
   children,
-  togglerProps,
   togglerText,
+  togglerClass,
   togglerIcon: Icon,
   complementaryText,
   collapseProps,
@@ -32,16 +32,14 @@ const Collapsible: FC<CollapseProps> = ({
     <div className="bg-kudwa-light shadow-soft-left rounded-lg overflow-hidden">
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex justify-start items-center
-                  uppercase text-center h-10 w-full px-6 bg-gray-200
+        className={`flex justify-start items-center
+                  text-center h-10 w-full px-6 bg-gray-200
                   hover:bg-gray-300 transition-colors duration-200 ease-in-out
-                  gap-4 text-xs md:text-base cursor-pointer"
-        {...togglerProps}
-        type="button"
+                  gap-4 text-xs md:text-base cursor-pointer ${togglerClass}`}
       >
         {Icon && <span className="text-lg md:text-2xl mr-2">{<Icon />}</span>}
-        {togglerText}
-        {complementaryText && <span className="text-kudwa-brown-700 ml-2">{complementaryText}</span>}
+        <span className="font-semibold">{togglerText}</span>
+        {complementaryText && <span className="text-kudwa-brown-700 italic transform-none">{complementaryText}</span>}
         <span className="ml-auto">{isOpen ? <HiChevronUp /> : <HiChevronDown />}</span>
       </button>
       <div
