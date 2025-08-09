@@ -1,13 +1,11 @@
-type ChartType = "line" | "donut" | "bar" | "pie" | "columnStacked"
-
 type Period = "monthly" | "quarterly" | "yearly"
 
 export interface DashboardData {
-  mainDashboard: MainDashboard
-  mainDashboardKPIs: MainDashboardKPIs
+  mainDashboard: IMainDashboard
+  mainDashboardKPIs: IMainDashboardKPIs
 }
 
-export interface MainDashboard {
+export interface IMainDashboard {
   period: Period
   startDate: string
   endDate: string
@@ -17,28 +15,48 @@ export interface MainDashboard {
 }
 
 export interface Charts {
-  cashAtBank: ChartInfo[]
-  expenseSplit: SingleChartInfo[]
-  indirectCashflow: (ChartInfo | null)[]
-  totalRevenuesSplit: SingleChartInfo[]
-  profitLossOverview: ChartInfo[]
-  salariesSplit: unknown[]
-  ManpowerOperatingExpenses: unknown[]
+  cashAtBank: (ChartInfoUnion | null)[]
+  expenseSplit: (ChartInfoUnion | null)[]
+  indirectCashflow: (ChartInfoUnion | null)[]
+  totalRevenuesSplit: (ChartInfoUnion | null)[]
+  profitLossOverview: (ChartInfoUnion | null)[]
+  salariesSplit: (ChartInfoUnion | null)[]
+  ManpowerOperatingExpenses: (ChartInfoUnion | null)[]
 }
 
-export interface ChartInfo {
-  chartType: ChartType
+export interface LineChartInfo {
+  chartType: "line"
   name: string
   values: number[]
 }
 
-export interface SingleChartInfo {
-  chartType: ChartType
+export interface DonutChartInfo {
+  chartType: "donut"
   name: string
   values: number
 }
 
-export interface MainDashboardKPIs {
+export interface BarChartInfo {
+  chartType: "bar"
+  name: string
+  values: number[]
+}
+
+export interface PieChartInfo {
+  chartType: "pie"
+  name: string
+  values: number
+}
+
+export interface ColumnStackedChartInfo {
+  chartType: "columnStacked"
+  name: string
+  values: number[]
+}
+
+type ChartInfoUnion = LineChartInfo | DonutChartInfo | BarChartInfo | PieChartInfo | ColumnStackedChartInfo
+
+export interface IMainDashboardKPIs {
   topKPIs: TopKPI[]
   KPIs: KPI[]
 }

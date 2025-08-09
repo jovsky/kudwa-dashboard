@@ -1,30 +1,51 @@
 import { z } from "zod"
 
-import { ChartType, Period } from "@/types/dashboardTypes"
+import { Period } from "@/types/dashboardTypes"
 
-const chatTypeValues: ChartType[] = ["line", "donut", "bar", "pie", "columnStacked"] as const
 const periodValues: Period[] = ["monthly", "quarterly", "yearly"] as const
 
-export const ChartInfoSchema = z.object({
-  chartType: z.enum(chatTypeValues),
+export const LineChartInfoSchema = z.object({
+  chartType: z.literal("line"),
+  name: z.string(),
+  values: z.array(z.number()),
+})
+export const DonutChartInfoSchema = z.object({
+  chartType: z.literal("donut"),
+  name: z.string(),
+  values: z.number(),
+})
+export const BarChartInfoSchema = z.object({
+  chartType: z.literal("bar"),
+  name: z.string(),
+  values: z.array(z.number()),
+})
+export const PieChartInfoSchema = z.object({
+  chartType: z.literal("pie"),
+  name: z.string(),
+  values: z.number(),
+})
+export const ColumnStackedChartInfoSchema = z.object({
+  chartType: z.literal("columnStacked"),
   name: z.string(),
   values: z.array(z.number()),
 })
 
-export const SingleChartInfo = z.object({
-  chartType: z.enum(chatTypeValues),
-  name: z.string(),
-  values: z.number(),
-})
+const ChartInfoUnionSchema = z.union([
+  LineChartInfoSchema,
+  DonutChartInfoSchema,
+  BarChartInfoSchema,
+  PieChartInfoSchema,
+  ColumnStackedChartInfoSchema,
+])
 
 export const ChartsSchema = z.object({
-  cashAtBank: z.array(ChartInfoSchema),
-  expenseSplit: z.array(SingleChartInfo),
-  indirectCashflow: z.array(ChartInfoSchema.or(z.null())),
-  totalRevenuesSplit: z.array(SingleChartInfo),
-  profitLossOverview: z.array(ChartInfoSchema),
-  salariesSplit: z.array(z.unknown()),
-  ManpowerOperatingExpenses: z.array(z.unknown()),
+  cashAtBank: z.array(ChartInfoUnionSchema.or(z.null())),
+  expenseSplit: z.array(ChartInfoUnionSchema.or(z.null())),
+  indirectCashflow: z.array(ChartInfoUnionSchema.or(z.null())),
+  totalRevenuesSplit: z.array(ChartInfoUnionSchema.or(z.null())),
+  profitLossOverview: z.array(ChartInfoUnionSchema.or(z.null())),
+  salariesSplit: z.array(ChartInfoUnionSchema.or(z.null())),
+  ManpowerOperatingExpenses: z.array(ChartInfoUnionSchema.or(z.null())),
 })
 
 export const KpiSchema = z.object({

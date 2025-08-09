@@ -155,10 +155,14 @@ export default {
       const expenseData = dashboardData.mainDashboard.charts.expenseSplit || []
 
       const totalRevenue = revenueData.reduce((sum, item) => {
+        if (!item) return sum
+
         return sum + (typeof item.values === "number" ? item.values : 0)
       }, 0)
 
       const totalExpenses = expenseData.reduce((sum, item) => {
+        if (!item) return sum
+
         return sum + (typeof item.values === "number" ? item.values : 0)
       }, 0)
 
