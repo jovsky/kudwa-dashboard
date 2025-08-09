@@ -1,4 +1,3 @@
-// Dashboard Data Types
 type ChartType = "line" | "donut" | "bar" | "pie" | "columnStacked"
 
 type Period = "monthly" | "quarterly" | "yearly"
@@ -9,7 +8,7 @@ export interface DashboardData {
 }
 
 export interface MainDashboard {
-  period: string
+  period: Period
   startDate: string
   endDate: string
   metricDate: string
