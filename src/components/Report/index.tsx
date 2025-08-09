@@ -2,6 +2,7 @@
 import { useQuery } from "@tanstack/react-query"
 import React from "react"
 
+import pageDefs from "@/app/pageDefs"
 import api from "@/data/api"
 
 import LoadingScreen from "../LoadingScreen"
@@ -24,7 +25,7 @@ const Report: React.FC = () => {
 
   return (
     <>
-      <PageTitle title="Report" />
+      <PageTitle title={pageDefs.report.name} />
       <div className="flex-1">
         {isLoading ? <LoadingScreen /> : apiResponse ? <ReportContent reportData={apiResponse.data} /> : null}
       </div>

@@ -2,6 +2,7 @@
 import { useQuery } from "@tanstack/react-query"
 import React, { useState } from "react"
 
+import pageDefs from "@/app/pageDefs"
 import api from "@/data/api"
 import { Period } from "@/types/dashboardTypes"
 
@@ -28,7 +29,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <PageTitle title="Dashboard" />
+      <PageTitle title={pageDefs.dashboard.name} />
       <PeriodSelector period={selectedPeriod} onPeriodChange={setSelectedPeriod} />
       <div className="flex-1">
         {isLoading ? <LoadingScreen /> : apiResponse ? <DashboardContent dashboardData={apiResponse.data} /> : null}
