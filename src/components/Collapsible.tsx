@@ -1,6 +1,8 @@
-import { FC, PropsWithChildren, useEffect, useState } from "react"
+import { FC, PropsWithChildren } from "react"
 import { HiChevronDown, HiChevronUp } from "react-icons/hi2"
 import { IconType } from "react-icons/lib"
+
+import useDisclosure from "@/hooks/useDisclosure"
 
 interface CollapseProps extends PropsWithChildren {
   togglerText: string
@@ -8,6 +10,10 @@ interface CollapseProps extends PropsWithChildren {
   togglerIcon?: IconType
   complementaryText?: string
   collapseProps?: React.HTMLAttributes<HTMLDivElement>
+  disclosure?: {
+    isOpen: boolean
+    toggle: () => void
+  }
 }
 
 const Collapsible: FC<CollapseProps> = ({
@@ -17,21 +23,15 @@ const Collapsible: FC<CollapseProps> = ({
   togglerIcon: Icon,
   complementaryText,
   collapseProps,
+  disclosure,
 }) => {
-  const [isOpen, setIsOpen] = useState(
-    typeof window !== "undefined" ? localStorage.getItem(`collapse:${togglerText}`) === "true" : false,
-  )
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(`collapse:${togglerText}`, String(isOpen))
-    }
-  }, [isOpen, togglerText])
+  const innerDisclosure = useDisclosure(`collapse:${togglerText}`)
+  const { isOpen, toggle } = disclosure ?? innerDisclosure
 
   return (
     <div className="flex flex-col h-fit w-full bg-kudwa-light shadow-soft-left rounded-lg ">
       <button
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={toggle}
         className={`flex justify-start items-center
                   text-center h-10 w-full px-6 bg-gray-200
                   hover:bg-gray-300 rounded-t-lg

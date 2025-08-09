@@ -1,22 +1,78 @@
-import React from "react"
+import React, { useCallback, useMemo } from "react"
 import { FaChartBar } from "react-icons/fa"
 
-import { ChartInfoUnion, IMainDashboard } from "@/types/dashboardTypes"
+import useDisclosure from "@/hooks/useDisclosure"
+import { IMainDashboard } from "@/types/dashboardTypes"
+import filterNull from "@/utils/filterNull"
 
 import ChartMap from "../Charts/ChartMap"
 import Collapsible from "../Collapsible"
 import ChartCard from "./ChartCard"
 
 const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashboard }) => {
+  const chartDisclosure = useDisclosure("collapse:charts")
+
+  const cashAtBankDisclosure = useDisclosure("collapse:cashAtBank")
+  const expenseSplitDisclosure = useDisclosure("collapse:expenseSplit")
+  const indirectCashflowDisclosure = useDisclosure("collapse:indirectCashflow")
+  const totalRevenuesSplitDisclosure = useDisclosure("collapse:totalRevenuesSplit")
+  const profitLossOverviewDisclosure = useDisclosure("collapse:profitLossOverview")
+  const salariesSplitDisclosure = useDisclosure("collapse:salariesSplit")
+  const manpowerOperatingExpensesDisclosure = useDisclosure("collapse:ManpowerOperatingExpenses")
+
+  const buildChartSerieData = useCallback(
+    (id: keyof typeof mainDashboard.charts, name: string, disclosure: ReturnType<typeof useDisclosure>) => ({
+      id,
+      name,
+      data: filterNull(mainDashboard.charts[id]),
+      isOpen: disclosure.isOpen,
+      toggle: disclosure.toggle,
+      onOpen: () => {
+        disclosure.onOpen()
+        chartDisclosure.onOpen()
+      },
+    }),
+    [chartDisclosure, mainDashboard],
+  )
+
+  const cashAtBank = useMemo(
+    () => buildChartSerieData("cashAtBank", "Cash at Bank", cashAtBankDisclosure),
+    [cashAtBankDisclosure, buildChartSerieData],
+  )
+  const expenseSplit = useMemo(
+    () => buildChartSerieData("expenseSplit", "Expense Split", expenseSplitDisclosure),
+    [expenseSplitDisclosure, buildChartSerieData],
+  )
+  const indirectCashflow = useMemo(
+    () => buildChartSerieData("indirectCashflow", "Indirect Cashflow", indirectCashflowDisclosure),
+    [indirectCashflowDisclosure, buildChartSerieData],
+  )
+  const totalRevenuesSplit = useMemo(
+    () => buildChartSerieData("totalRevenuesSplit", "Total Revenues Split", totalRevenuesSplitDisclosure),
+    [totalRevenuesSplitDisclosure, buildChartSerieData],
+  )
+  const profitLossOverview = useMemo(
+    () => buildChartSerieData("profitLossOverview", "Profit Loss Overview", profitLossOverviewDisclosure),
+    [profitLossOverviewDisclosure, buildChartSerieData],
+  )
+  const salariesSplit = useMemo(
+    () => buildChartSerieData("salariesSplit", "Salaries Split", salariesSplitDisclosure),
+    [salariesSplitDisclosure, buildChartSerieData],
+  )
+  const manpowerOperatingExpenses = useMemo(
+    () => buildChartSerieData("ManpowerOperatingExpenses", "Manpower Operating Expenses", manpowerOperatingExpensesDisclosure),
+    [manpowerOperatingExpensesDisclosure, buildChartSerieData],
+  )
+
   const series = [
-    { name: "Cash at Bank", data: mainDashboard.charts.cashAtBank.filter((v) => v) },
-    { name: "Expense Split", data: mainDashboard.charts.expenseSplit.filter((v) => v) },
-    { name: "Indirect Cashflow", data: mainDashboard.charts.indirectCashflow.filter((v) => v) },
-    { name: "Total Revenues Split", data: mainDashboard.charts.totalRevenuesSplit.filter((v) => v) },
-    { name: "Profit Loss Overview", data: mainDashboard.charts.profitLossOverview.filter((v) => v) },
-    { name: "Salaries Split", data: mainDashboard.charts.salariesSplit.filter((v) => v) },
-    { name: "Manpower Operating Expenses", data: mainDashboard.charts.ManpowerOperatingExpenses.filter((v) => v) },
-  ] as Array<{ name: string; data: ChartInfoUnion[] }>
+    cashAtBank,
+    expenseSplit,
+    indirectCashflow,
+    totalRevenuesSplit,
+    profitLossOverview,
+    salariesSplit,
+    manpowerOperatingExpenses,
+  ]
 
   return (
     <>
@@ -36,21 +92,21 @@ const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashbo
 
       <div className="grid grid-rows-2 gap-4 mb-10">
         <div className="grid grid-cols-3 gap-4">
-          {series.slice(0, 3).map(({ name, data }) => (
-            <ChartCard key={name} name={name} metricsCount={data.length} Icon={FaChartBar} color="blue" />
+          {series.slice(0, 3).map(({ name, data, onOpen }) => (
+            <ChartCard key={name} name={name} metricsCount={data.length} Icon={FaChartBar} color="blue" onClick={onOpen} />
           ))}
         </div>
         <div className="grid grid-cols-4 gap-4">
-          {series.slice(3).map(({ name, data }) => (
-            <ChartCard key={name} name={name} metricsCount={data.length} Icon={FaChartBar} color="yellow" />
+          {series.slice(3).map(({ name, data, onOpen }) => (
+            <ChartCard key={name} name={name} metricsCount={data.length} Icon={FaChartBar} color="yellow" onClick={onOpen} />
           ))}
         </div>
       </div>
 
-      <Collapsible togglerText={"Charts"} togglerClass="uppercase">
+      <Collapsible togglerText={"Charts"} togglerClass="uppercase" disclosure={chartDisclosure}>
         <div className="flex flex-col w-full p-1 overflow-hidden gap-6">
-          {series.map(({ name, data }) => (
-            <Collapsible key={name} togglerText={name} complementaryText={`(${data.length} metrics)`}>
+          {series.map(({ name, data, ...disclosure }) => (
+            <Collapsible key={name} togglerText={name} complementaryText={`(${data.length} metrics)`} disclosure={disclosure}>
               <ChartMap chartInfo={data} dateArray={mainDashboard.dateArray} />
             </Collapsible>
           ))}

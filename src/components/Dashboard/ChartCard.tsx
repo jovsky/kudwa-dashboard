@@ -5,6 +5,7 @@ interface ChartCardProps {
   metricsCount: number
   Icon: IconType
   color: "blue" | "yellow"
+  onClick: () => void
 }
 
 const paletteOptions = {
@@ -20,13 +21,14 @@ const paletteOptions = {
   },
 } as const
 
-const ChartCard: React.FC<ChartCardProps> = ({ name, metricsCount, Icon, color }) => {
+const ChartCard: React.FC<ChartCardProps> = ({ name, metricsCount, Icon, color, onClick }) => {
   const { bgColor, borderColor, iconColor } = paletteOptions[color]
 
   return (
-    <div
+    <button
       className={`flex ${bgColor} shadow-soft-left px-4 py-2 rounded-lg border-l-2 border-b-2 ${borderColor} items-center select-none 
-      hover:scale-103 transition-transform duration-200 ease-in-out`}
+      hover:scale-103 transition-transform duration-200 ease-in-out cursor-pointer`}
+      onClick={onClick}
     >
       <div className="flex flex-col">
         <h3 className="font-semibold mb-2">{name}</h3>
@@ -35,7 +37,7 @@ const ChartCard: React.FC<ChartCardProps> = ({ name, metricsCount, Icon, color }
       <div className="flex ml-auto">
         <Icon size={30} className={iconColor} />
       </div>
-    </div>
+    </button>
   )
 }
 
