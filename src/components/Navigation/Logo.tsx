@@ -1,8 +1,6 @@
-// Next modules
 import Image from "next/image"
 import Link from "next/link"
 
-// Images
 import logoGrupoHope from "@/assets/logo.avif"
 
 export default function Logo() {

@@ -1,19 +1,31 @@
 import { redirect } from "next/navigation"
 import { usePathname } from "next/navigation"
-import { FC } from "react"
+import { FC, useCallback } from "react"
 import { RiMenuLine } from "react-icons/ri"
+import { useDispatch, useSelector } from "react-redux"
 
 import pageDefs from "@/app/pageDefs"
-import useDisclosure from "@/hooks/useDisclosure"
+import { RootState } from "@/store"
+import { toggleSidebar } from "@/store/slices/sideBarSlice"
 
 import Button from "../Button"
 
 const transition = "transition-all duration-300 ease-in-out"
 
-const SideMenu: FC = () => {
-  const { isOpen, onClose, onOpen } = useDisclosure()
+const SideBar: FC = () => {
+  const isOpen = useSelector((state: RootState) => state.sideBar.isOpen)
+  const dispatch = useDispatch()
 
   const currentRoute = usePathname()
+
+  const changeRoute = useCallback(
+    (route: string) => {
+      if (route !== currentRoute) {
+        redirect(route)
+      }
+    },
+    [currentRoute],
+  )
 
   return (
     <div
@@ -25,7 +37,7 @@ const SideMenu: FC = () => {
         >
           Menu
         </div>
-        <Button size="md" icon={RiMenuLine} onClick={() => (isOpen ? onClose() : onOpen())} />
+        <Button size="md" icon={RiMenuLine} onClick={() => dispatch(toggleSidebar())} />
       </div>
       <div className={`flex flex-col gap-3 items-start w-full justify-center`}>
         {Object.values(pageDefs).map((page) => (
@@ -47,7 +59,7 @@ const SideMenu: FC = () => {
             size={"md"}
             variant={!page.route.includes(currentRoute) ? "primary" : "secondary"}
             className={`border-transparent! ${isOpen ? "w-full gap-2" : "w-fit gap-0"}`}
-            onClick={() => !page.route.includes(currentRoute) && redirect(page.route)}
+            onClick={changeRoute.bind(null, page.route)}
           />
         ))}
       </div>
@@ -55,4 +67,4 @@ const SideMenu: FC = () => {
   )
 }
 
-export default SideMenu
+export default SideBar
