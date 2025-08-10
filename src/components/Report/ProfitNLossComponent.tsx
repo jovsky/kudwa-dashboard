@@ -9,9 +9,10 @@ import ReportFieldComponent from "./ReportFieldComponent"
 interface ProfitNLossComponentProps {
   field: ProfitNLoss | ProfitNLossField
   period: Period
+  variant?: "blue" | "gray"
 }
 
-const ProfitNLossComponent: React.FC<ProfitNLossComponentProps> = ({ field, period }) => {
+const ProfitNLossComponent: React.FC<ProfitNLossComponentProps> = ({ field, period, variant = "blue" }) => {
   const otherInfo: Record<string, string | number> =
     "financialReportId" in field
       ? {
@@ -24,7 +25,7 @@ const ProfitNLossComponent: React.FC<ProfitNLossComponentProps> = ({ field, peri
         }
 
   return (
-    <Collapsible togglerText={field.name} variant="blue">
+    <Collapsible togglerText={field.name} variant={variant}>
       <ReportFieldComponent
         field={field}
         otherInfo={otherInfo}

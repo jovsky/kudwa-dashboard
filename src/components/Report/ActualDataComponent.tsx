@@ -41,7 +41,7 @@ const ActualDataComponent: React.FC<ActualDataComponentProps> = ({ actualData })
           <Table rows={{ Values: data.value }} headDescriptions={slots} format={formatCurrency} />
         </>
       ) : (
-        <div className="flex-1 text-center">No actual data available.</div>
+        <div className="flex-1 text-center">No current data available.</div>
       )}
     </div>
   )
