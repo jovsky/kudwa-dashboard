@@ -22,20 +22,14 @@ const paletteOptions = {
   },
 } as const
 
-const ChartCard: React.FC<ChartCardProps> = ({ name, metricsCount, Icon, color, id, onOpen }) => {
+const ChartCard: React.FC<ChartCardProps> = ({ name, metricsCount, Icon, color, onOpen }) => {
   const { bgColor, borderColor, iconColor } = paletteOptions[color]
 
   return (
     <button
       className={`flex ${bgColor} shadow-soft-left px-4 py-2 rounded-lg border-l-2 border-b-2 ${borderColor} items-center select-none 
       hover:scale-103 transition-transform duration-200 ease-in-out cursor-pointer max-h-[74px]`}
-      onClick={() => {
-        setTimeout(() => {
-          const el = document.getElementById(id)
-          el?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" })
-        }, 100)
-        onOpen()
-      }}
+      onClick={onOpen}
     >
       <div className="flex flex-col items-start">
         <h3 className="font-semibold mb-2">{name}</h3>
