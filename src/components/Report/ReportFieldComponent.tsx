@@ -1,8 +1,11 @@
-import React from "react"
+import React, { useMemo } from "react"
 
 import { Period } from "@/types/globalTypes"
 import { ReportField } from "@/types/reportTypes"
 import _formatNumber from "@/utils/formatNumber"
+import toTitleCase from "@/utils/toTitleCase"
+
+import ReportTable from "./ReportTable"
 
 const formatNumber = (value: number) => _formatNumber(value, 2)
 
@@ -13,6 +16,8 @@ interface ReportFieldComponentProps {
 }
 
 const ReportFieldComponent: React.FC<ReportFieldComponentProps> = ({ field, otherInfo, period }) => {
+  const slots = useMemo(() => Array.from({ length: field.result.length }, (_, i) => `T${i + 1}`), [field.result.length])
+
   return (
     <div className="rounded-lg mb-4 bg-kudwa-light">
       <div className="font-bold text-lg mb-2">{field.name}</div>
@@ -45,51 +50,29 @@ const ReportFieldComponent: React.FC<ReportFieldComponentProps> = ({ field, othe
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 mb-2">
-        {period === "monthly" ? (
-          <>
-            <div>
-              <span className="font-semibold">Result: ({field.result.length})</span> {field.result.map(formatNumber).join(", ")}
-            </div>
-            <div>
-              <span className="font-semibold">Total Result: ({field.totalResult.length})</span>{" "}
-              {field.totalResult.map(formatNumber).join(", ")}
-            </div>
-            <div>
-              <span className="font-semibold">Past Month: ({field.pastMonth.length})</span>{" "}
-              {field.pastMonth.map(formatNumber).join(", ")}
-            </div>
-          </>
-        ) : period === "quarterly" ? (
-          <>
-            <div>
-              <div>
-                <span className="font-semibold">Quarterly: ({field.quarterly.length})</span>{" "}
-                {field.quarterly.map(formatNumber).join(", ")}
-                <div>
-                  <span className="font-semibold">Quarterly Result: ({field.quarterlyResult.length})</span>{" "}
-                  {field.quarterlyResult.map(formatNumber).join(", ")}
-                </div>
-              </div>
-              <span className="font-semibold">Quarterly Past Month: ({field.quarterlyPastMonth.length})</span>{" "}
-              {field.quarterlyPastMonth.map(formatNumber).join(", ")}
-            </div>
-          </>
-        ) : (
-          <>
-            <div>
-              <span className="font-semibold">Yearly: ({field.yearly.length})</span> {field.yearly.map(formatNumber).join(", ")}
-            </div>
-            <div>
-              <span className="font-semibold">Yearly Result: ({field.yearlyResult.length})</span>{" "}
-              {field.yearlyResult.map(formatNumber).join(", ")}
-            </div>
-            <div>
-              <span className="font-semibold">Yearly Past Month: ({field.yearlyPastMonth.length})</span>{" "}
-              {field.yearlyPastMonth.map(formatNumber).join(", ")}
-            </div>
-          </>
-        )}
+      <div className="">
+        <p className="text-gray-500 text-md font-semibold w-full text-center">
+          {field.name} {toTitleCase(period)} Data Table
+        </p>
+        <div className="flex flex-col gap-4 overflow-x-scroll py-3">
+          {period === "monthly" ? (
+            <ReportTable result={field.result} totalResult={field.totalResult} pastMonth={field.pastMonth} slotLabels={slots} />
+          ) : period === "quarterly" ? (
+            <ReportTable
+              result={field.quarterly}
+              totalResult={field.quarterlyResult}
+              pastMonth={field.quarterlyPastMonth}
+              slotLabels={slots}
+            />
+          ) : (
+            <ReportTable
+              result={field.yearly}
+              totalResult={field.yearlyResult}
+              pastMonth={field.yearlyPastMonth}
+              slotLabels={slots}
+            />
+          )}
+        </div>
       </div>
     </div>
   )

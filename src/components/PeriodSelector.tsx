@@ -1,6 +1,7 @@
 import { FC } from "react"
 
 import { Period } from "@/types/globalTypes"
+import toTitleCase from "@/utils/toTitleCase"
 
 const periods: Period[] = ["monthly", "quarterly", "yearly"]
 
@@ -22,7 +23,7 @@ const PeriodSelector: FC<PeriodSelectorProps> = ({ period, onPeriodChange, disab
             className={`btn-base btn-md ${p === period ? "btn-tertiary" : "btn-primary"}`}
             disabled={disabled}
           >
-            {p.charAt(0).toUpperCase() + p.slice(1)}
+            {toTitleCase(p)}
           </button>
         ))}
       </div>
