@@ -65,47 +65,6 @@ export default {
   },
 
   /**
-   * Fetch all dashboard data (monthly, quarterly, yearly)
-   */
-  async getAllDashboardData(): Promise<
-    ApiResponse<{
-      monthly: DashboardData
-      quarterly: DashboardData
-      yearly: DashboardData
-    }>
-  > {
-    try {
-      await simulateDelay(2000)
-
-      const [monthly, quarterly, yearly] = await Promise.all([
-        this.getDashboardData("monthly"),
-        this.getDashboardData("quarterly"),
-        this.getDashboardData("yearly"),
-      ])
-
-      return {
-        data: {
-          monthly: monthly.data,
-          quarterly: quarterly.data,
-          yearly: yearly.data,
-        },
-        status: "success",
-        message: "All dashboard data retrieved successfully",
-      }
-    } catch (error) {
-      return {
-        data: {
-          monthly: {} as DashboardData,
-          quarterly: {} as DashboardData,
-          yearly: {} as DashboardData,
-        },
-        status: "error",
-        message: error instanceof Error ? error.message : "Unknown error occurred",
-      }
-    }
-  },
-
-  /**
    * Fetch report data
    */
   async getReportData(): Promise<ApiResponse<ReportData>> {
@@ -122,73 +81,6 @@ export default {
     } catch (error) {
       return {
         data: {} as ReportData,
-        status: "error",
-        message: error instanceof Error ? error.message : "Unknown error occurred",
-      }
-    }
-  },
-
-  /**
-   * Fetch dashboard metrics summary for a specific period
-   */
-  async getDashboardMetrics(period: Period): Promise<
-    ApiResponse<{
-      totalRevenue: number
-      totalExpenses: number
-      netProfit: number
-      period: Period
-      lastUpdated: string
-    }>
-  > {
-    try {
-      await simulateDelay(2000)
-
-      const response = await this.getDashboardData(period)
-
-      if (response.status === "error") {
-        throw new Error(response.message)
-      }
-
-      const dashboardData = response.data
-
-      // Calculate metrics from chart data
-      const revenueData = dashboardData.mainDashboard.charts.totalRevenuesSplit || []
-      const expenseData = dashboardData.mainDashboard.charts.expenseSplit || []
-
-      const totalRevenue = revenueData.reduce((sum, item) => {
-        if (!item) return sum
-
-        return sum + (typeof item.values === "number" ? item.values : 0)
-      }, 0)
-
-      const totalExpenses = expenseData.reduce((sum, item) => {
-        if (!item) return sum
-
-        return sum + (typeof item.values === "number" ? item.values : 0)
-      }, 0)
-
-      const netProfit = totalRevenue - totalExpenses
-
-      return {
-        data: {
-          totalRevenue,
-          totalExpenses,
-          netProfit,
-          period,
-          lastUpdated: new Date().toISOString(),
-        },
-        status: "success",
-        message: `Dashboard metrics for ${period} period calculated successfully`,
-      }
-    } catch (error) {
-      return {
-        data: {
-          totalRevenue: 0,
-          totalExpenses: 0,
-          netProfit: 0,
-          period,
-          lastUpdated: new Date().toISOString(),
-        },
         status: "error",
         message: error instanceof Error ? error.message : "Unknown error occurred",
       }
