@@ -14,6 +14,7 @@ import Button from "../Button"
 import LoadingScreen from "../LoadingScreen"
 import PageTitle from "../PageTitle"
 import MainDashboard from "./MainDashboard"
+import MainDashboardKPIs from "./MainDashboardKPIs"
 import PeriodSelector from "./PeriodSelector"
 
 const Dashboard: React.FC = () => {
@@ -47,9 +48,10 @@ const Dashboard: React.FC = () => {
       {loading ? (
         <LoadingScreen />
       ) : data ? (
-        <div className="pt-2 px-6 pb-20 overflow-y-auto">
+        <div className="flex flex-col pt-2 px-6 pb-20 overflow-y-auto">
           <MainDashboard mainDashboard={data.mainDashboard} />
-          {/* <MainDashboardKPIs mainDashboard={data.mainDashboard} /> */}
+          <div className="w-full border-b border-gray-200 h-1 mt-14 mb-8"></div>
+          <MainDashboardKPIs mainDashboardKPIs={data.mainDashboardKPIs} />
         </div>
       ) : null}
     </>
