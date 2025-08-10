@@ -2,18 +2,21 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 import api from "@/data/api"
 import { ReportDataSchema } from "@/schemas/reportSchemas"
+import { Period } from "@/types/globalTypes"
 import { ReportData } from "@/types/reportTypes"
 
 interface ReportState {
   data: ReportData | null
   loading: boolean
   error: string | null
+  period: Period
 }
 
 const initialState: ReportState = {
   data: null,
   loading: false,
   error: null,
+  period: "monthly",
 }
 
 export const fetchReportData = createAsyncThunk<ReportData, void, { rejectValue: string }>(
@@ -37,7 +40,11 @@ export const fetchReportData = createAsyncThunk<ReportData, void, { rejectValue:
 const reportSlice = createSlice({
   name: "report",
   initialState,
-  reducers: {},
+  reducers: {
+    changePeriod: (state, action) => {
+      state.period = action.payload
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchReportData.pending, (state) => {
@@ -54,5 +61,7 @@ const reportSlice = createSlice({
       })
   },
 })
+
+export const { changePeriod } = reportSlice.actions
 
 export const reportReducer = reportSlice.reducer

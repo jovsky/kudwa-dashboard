@@ -1,11 +1,15 @@
 "use client"
 import React from "react"
+import { useSelector } from "react-redux"
 
+import { RootState } from "@/store"
 import { ReportData } from "@/types/reportTypes"
 
 import ProfitNLossComponent from "./ProfitNLossComponent"
 
 const ReportContent: React.FC<{ reportData: ReportData }> = ({ reportData }) => {
+  const { period } = useSelector((state: RootState) => state.dashboard)
+
   return (
     <div className="py-2 px-6 overflow-y-auto">
       <div className="bg-kudwa-light p-4 rounded-lg space-y-2">
@@ -24,7 +28,7 @@ const ReportContent: React.FC<{ reportData: ReportData }> = ({ reportData }) => 
       </div>
 
       {reportData.reportResult.profitnLoss.map((field) => (
-        <ProfitNLossComponent key={field.id} field={field} />
+        <ProfitNLossComponent key={field.id} field={field} period={period} />
       ))}
     </div>
   )
