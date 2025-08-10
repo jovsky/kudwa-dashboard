@@ -15,13 +15,13 @@ const ProfitNLossComponent: React.FC<ProfitNLossComponentProps> = ({ field, peri
   const otherInfo: [string, string | number][] =
     "financialReportId" in field
       ? [
-          ["Financial Report Id", field.financialReportId],
+          ["Financial Report ID", field.financialReportId],
           ["Type", field.type],
         ]
       : [
-          ["Top Level Field Id", field.topLevelFieldId || "-"],
+          ["Top Level Field ID", field.topLevelFieldId || "-"],
           ["Unique Reference", JSON.stringify(field.uniqueReference)],
-          ["Field Id", field.fieldId || "-"],
+          ["Field ID", field.fieldId || "-"],
         ]
 
   return (

@@ -2,12 +2,11 @@ import React, { useMemo } from "react"
 
 import { Period } from "@/types/globalTypes"
 import { ReportField } from "@/types/reportTypes"
-import _formatNumber from "@/utils/formatNumber"
+import formatDateTime from "@/utils/formatDateTime"
 import toTitleCase from "@/utils/toTitleCase"
 
+import ActualDataComponent from "./ActualDataComponent"
 import ReportTable from "./ReportTable"
-
-const formatNumber = (value: number) => _formatNumber(value, 2)
 
 interface ReportFieldComponentProps {
   field: ReportField
@@ -24,11 +23,11 @@ const ReportFieldComponent: React.FC<ReportFieldComponentProps> = ({ field, othe
 
       <div className="flex gap-10">
         <div className="">
-          <div className="text-sm text-gray-500 mb-2">Id: {field.id}</div>
+          <div className="text-sm text-gray-500 mb-2">ID: {field.id}</div>
           <div className="text-sm text-gray-500 mb-2">Description: {field.description ?? "-"}</div>
           <div className="text-sm text-gray-500 mb-2">Style: {field.style ?? "-"}</div>
-          <div className="text-sm text-gray-500 mb-2">Created At: {field.createdAt}</div>
-          <div className="text-sm text-gray-500 mb-2">Updated At: {field.updatedAt}</div>
+          <div className="text-sm text-gray-500 mb-2">Created At: {formatDateTime(field.createdAt)}</div>
+          <div className="text-sm text-gray-500 mb-2">Updated At: {formatDateTime(field.updatedAt)}</div>
         </div>
         <div className="flex-1">
           {otherInfo.map(([label, value]) => (
@@ -39,37 +38,39 @@ const ReportFieldComponent: React.FC<ReportFieldComponentProps> = ({ field, othe
         </div>
       </div>
 
-      <div className="my-3">
-        <span className="font-semibold">Actual Data: ({field.actualData[0]?.value.length ?? 0})</span>
-        <div className="list-disc ml-6">
-          {field.actualData.map((ad) => (
-            <li key={ad.id}>
-              {ad.value.map(formatNumber).join(", ")} ({ad.source})
-            </li>
-          ))}
-        </div>
-      </div>
+      <ActualDataComponent actualData={field.actualData} />
 
-      <div className="">
-        <p className="text-gray-500 text-md font-semibold w-full text-center">
+      <div className="mt-2">
+        <p className="text-gray-500 text-md font-semibold">
           {field.name} {toTitleCase(period)} Data Table
         </p>
         <div className="flex flex-col gap-4 overflow-x-scroll py-3">
           {period === "monthly" ? (
-            <ReportTable result={field.result} totalResult={field.totalResult} pastMonth={field.pastMonth} slotLabels={slots} />
+            <ReportTable
+              headDescriptions={slots}
+              rows={{
+                "Monthly Result": field.result,
+                "Monthly Total Result": field.totalResult,
+                "Monthly Past Month": field.pastMonth,
+              }}
+            />
           ) : period === "quarterly" ? (
             <ReportTable
-              result={field.quarterly}
-              totalResult={field.quarterlyResult}
-              pastMonth={field.quarterlyPastMonth}
-              slotLabels={slots}
+              headDescriptions={slots}
+              rows={{
+                "Quarterly Result": field.quarterly,
+                "Quarterly Total Result": field.quarterlyResult,
+                "Quarterly Past Month": field.quarterlyPastMonth,
+              }}
             />
           ) : (
             <ReportTable
-              result={field.yearly}
-              totalResult={field.yearlyResult}
-              pastMonth={field.yearlyPastMonth}
-              slotLabels={slots}
+              headDescriptions={slots}
+              rows={{
+                "Yearly Result": field.yearly,
+                "Yearly Total Result": field.yearlyResult,
+                "Yearly Past Month": field.yearlyPastMonth,
+              }}
             />
           )}
         </div>

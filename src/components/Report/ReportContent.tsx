@@ -4,26 +4,30 @@ import { useSelector } from "react-redux"
 
 import { RootState } from "@/store"
 import { ReportData } from "@/types/reportTypes"
+import formatMonthYear from "@/utils/formatMonthYear"
 
 import ProfitNLossComponent from "./ProfitNLossComponent"
 
 const ReportContent: React.FC<{ reportData: ReportData }> = ({ reportData }) => {
   const { period } = useSelector((state: RootState) => state.report)
 
+  const startDate = formatMonthYear("01-" + reportData.reportResult.startingDate)
+  const endDate = formatMonthYear("01-" + reportData.reportResult.endingDate)
+
   return (
     <div className="py-2 px-6 overflow-y-auto">
       <div className="bg-kudwa-light p-4 rounded-lg space-y-2">
         <p>
-          <strong>Report ID:</strong> {reportData.reportResult.id}
+          <span className="font-semibold">Report ID:</span> {reportData.reportResult.id}
         </p>
         <p>
-          <strong>Scenario ID:</strong> {reportData.reportResult.scenarioId}
+          <span className="font-semibold">Scenario ID:</span> {reportData.reportResult.scenarioId}
         </p>
         <p>
-          <strong>Date Range:</strong> {reportData.reportResult.startingDate} - {reportData.reportResult.endingDate}
+          <span className="font-semibold">Date Range:</span> {startDate} - {endDate}
         </p>
         <p>
-          <strong>Profit & Loss Items:</strong> {reportData.reportResult.profitnLoss.length}
+          <span className="font-semibold">Profit & Loss Items:</span> {reportData.reportResult.profitnLoss.length}
         </p>
       </div>
 
