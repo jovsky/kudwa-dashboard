@@ -34,7 +34,7 @@ const Report: React.FC = () => {
           <Button size="md" icon={IoMdRefresh} onClick={() => dispatch(fetchReportData())} variant="success" disabled={loading} />
         </div>
       </div>
-      {loading ? <LoadingScreen /> : data ? <ReportContent reportData={data} /> : null}
+      {loading ? <LoadingScreen /> : data ? <ReportContent reportData={data} period={period} /> : null}
     </>
   )
 }

@@ -12,21 +12,25 @@ interface ProfitNLossComponentProps {
 }
 
 const ProfitNLossComponent: React.FC<ProfitNLossComponentProps> = ({ field, period }) => {
-  const otherInfo: [string, string | number][] =
+  const otherInfo: Record<string, string | number> =
     "financialReportId" in field
-      ? [
-          ["Financial Report ID", field.financialReportId],
-          ["Type", field.type],
-        ]
-      : [
-          ["Top Level Field ID", field.topLevelFieldId || "-"],
-          ["Unique Reference", JSON.stringify(field.uniqueReference)],
-          ["Field ID", field.fieldId || "-"],
-        ]
+      ? {
+          "Financial Report ID": field.financialReportId,
+          Type: field.type,
+        }
+      : {
+          "Top Level Field ID": field.topLevelFieldId || "-",
+          "Field ID": field.fieldId || "-",
+        }
 
   return (
     <div className="rounded-lg p-6 bg-kudwa-light shadow-2xl border-4 border-kudwa-blue">
-      <ReportFieldComponent field={field} otherInfo={otherInfo} period={period} />
+      <ReportFieldComponent
+        field={field}
+        otherInfo={otherInfo}
+        period={period}
+        uniqueReference={"uniqueReference" in field ? field.uniqueReference : undefined}
+      />
 
       {field.fields && field.fields.length > 0 && (
         <Collapsible togglerText={`${field.name} Metrics`} complementaryText={`(${field.fields.length})`} className="bg-gray-200">

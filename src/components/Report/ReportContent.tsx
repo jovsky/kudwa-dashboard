@@ -1,16 +1,18 @@
 "use client"
 import React from "react"
-import { useSelector } from "react-redux"
 
-import { RootState } from "@/store"
+import { Period } from "@/types/globalTypes"
 import { ReportData } from "@/types/reportTypes"
 import formatMonthYear from "@/utils/formatMonthYear"
 
 import ProfitNLossComponent from "./ProfitNLossComponent"
 
-const ReportContent: React.FC<{ reportData: ReportData }> = ({ reportData }) => {
-  const { period } = useSelector((state: RootState) => state.report)
+interface ReportContentProps {
+  reportData: ReportData
+  period: Period
+}
 
+const ReportContent: React.FC<ReportContentProps> = ({ reportData, period }) => {
   const startDate = formatMonthYear("01-" + reportData.reportResult.startingDate)
   const endDate = formatMonthYear("01-" + reportData.reportResult.endingDate)
 

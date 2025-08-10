@@ -3,6 +3,7 @@ import React, { useMemo } from "react"
 import { ActualData } from "@/types/reportTypes"
 import formatDateTime from "@/utils/formatDateTime"
 
+import FieldsList from "../FieldsList"
 import ReportTable from "./ReportTable"
 
 interface ActualDataComponentProps {
@@ -15,17 +16,26 @@ const ActualDataComponent: React.FC<ActualDataComponentProps> = ({ actualData })
   const data = actualData[0] as ActualData | undefined
 
   return (
-    <div className="my-3 bg-kudwa-yellow-100 p-4 rounded-3xl">
+    <div className="my-3 bg-kudwa-yellow-100 p-4 rounded-3xl border-2 border-kudwa-yellow">
       {data ? (
         <>
-          <div className="text-sm text-gray-600 mb-2">
-            <span className="font-semibold">ID:</span> {data.id}
-            <br />
-            <span className="font-semibold">Account:</span> {data.codatAccountId || "-"}
-            <br />
-            <span className="font-semibold">Source:</span> {data.source}
-            <br />
-            <span className="font-semibold">Created At:</span> {formatDateTime(data.createdAt)}
+          <div className="flex gap-10 text-sm items-end mb-6">
+            <FieldsList
+              list={{
+                "Account ID": data.codatAccountId || "-",
+                ID: data.id,
+                "Created At": formatDateTime(data.createdAt),
+                "Updated At": formatDateTime(data.updatedAt),
+              }}
+            />
+            <FieldsList
+              list={{
+                "Integration Source ID": data.integrationSourceId || "-",
+                Source: data.source,
+                "Field ID": data.fieldId || "-",
+                "Top Level Field ID": data.topLevelFieldId || "-",
+              }}
+            />
           </div>
           <div className="flex flex-col gap-4 overflow-x-scroll py-3">
             <ReportTable headDescriptions={slots} rows={{ Values: data.value }} />

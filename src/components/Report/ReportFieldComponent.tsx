@@ -1,41 +1,41 @@
 import React, { useMemo } from "react"
 
 import { Period } from "@/types/globalTypes"
-import { ReportField } from "@/types/reportTypes"
+import { ReportField, UniqueReference } from "@/types/reportTypes"
 import formatDateTime from "@/utils/formatDateTime"
 import toTitleCase from "@/utils/toTitleCase"
 
+import FieldsList from "../FieldsList"
 import ActualDataComponent from "./ActualDataComponent"
 import ReportTable from "./ReportTable"
+import UniqueReferenceComponent from "./UniqueReferenceComponent"
 
 interface ReportFieldComponentProps {
   field: ReportField
-  otherInfo: [string, string | number][]
+  otherInfo: Record<string, string | number>
   period: Period
+  uniqueReference?: UniqueReference
 }
 
-const ReportFieldComponent: React.FC<ReportFieldComponentProps> = ({ field, otherInfo, period }) => {
+const ReportFieldComponent: React.FC<ReportFieldComponentProps> = ({ field, otherInfo, period, uniqueReference }) => {
   const slots = useMemo(() => Array.from({ length: field.result.length }, (_, i) => `T${i + 1}`), [field.result.length])
 
   return (
     <div className="rounded-lg mb-4 bg-kudwa-light">
       <div className="font-bold text-lg mb-2">{field.name}</div>
 
-      <div className="flex gap-10">
-        <div className="">
-          <div className="text-sm text-gray-500 mb-2">ID: {field.id}</div>
-          <div className="text-sm text-gray-500 mb-2">Description: {field.description ?? "-"}</div>
-          <div className="text-sm text-gray-500 mb-2">Style: {field.style ?? "-"}</div>
-          <div className="text-sm text-gray-500 mb-2">Created At: {formatDateTime(field.createdAt)}</div>
-          <div className="text-sm text-gray-500 mb-2">Updated At: {formatDateTime(field.updatedAt)}</div>
-        </div>
-        <div className="flex-1">
-          {otherInfo.map(([label, value]) => (
-            <div key={label} className="text-sm text-gray-500 mb-2">
-              {label}: {value}
-            </div>
-          ))}
-        </div>
+      <div className="flex gap-10 text-sm items-end mb-6">
+        <FieldsList
+          list={{
+            ID: field.id,
+            Description: field.description ?? "-",
+            Style: field.style ?? "-",
+            "Created At": formatDateTime(field.createdAt),
+            "Updated At": formatDateTime(field.updatedAt),
+          }}
+        />
+        <FieldsList list={otherInfo} />
+        {uniqueReference && <UniqueReferenceComponent uniqueReference={uniqueReference} />}
       </div>
 
       <ActualDataComponent actualData={field.actualData} />
