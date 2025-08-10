@@ -126,7 +126,7 @@
         },
         {
           "chartType": "donut",
-          "name": "Plants and Soil",
+          "name": "Plants and Soil (2)",
           "values": -40000
         },
         {
@@ -191,7 +191,7 @@
         },
         {
           "chartType": "pie",
-          "name": "Fountains and Garden Lighting",
+          "name": "Fountains and Garden Lighting (2)",
           "values": 1501.5
         },
         {

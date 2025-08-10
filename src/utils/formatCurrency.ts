@@ -1,10 +1,5 @@
-export default function formatCurrency(value: number, decimals = 2): string {
-  const currencyFormatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  })
+import formatNumber from "./formatNumber"
 
-  return currencyFormatter.format(value)
+export default function formatCurrency(value: number, decimals: number | "truncate" = "truncate"): string {
+  return "$" + formatNumber(value, decimals)
 }

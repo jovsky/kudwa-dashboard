@@ -122,7 +122,7 @@ const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashbo
             complementaryText={`(${data.length} metrics)`}
             disclosure={disclosure}
           >
-            <ChartMap chartInfo={data} dateArray={mainDashboard.dateArray} />
+            <ChartMap chartInfo={data} dateArray={mainDashboard.dateArray} title={name} />
           </Collapsible>
         ))}
       </div>

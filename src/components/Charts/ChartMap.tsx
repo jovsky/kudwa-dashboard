@@ -17,11 +17,12 @@ import LineChart from "./LineChart"
 import PieChart from "./PieChart"
 
 interface ChartMapProps {
+  title: string
   chartInfo: ChartInfoUnion[]
   dateArray: string[]
 }
 
-const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
+const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray, title }) => {
   const lineChartInfo: LineChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "line")
   const donutChartInfo: DonutChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "donut")
   const barChartInfo: BarChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "bar")
@@ -40,7 +41,6 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
             xDesc: dateArray[index],
             Value: value,
           }))}
-          yAxisDescription={"$ Value"}
           barColor={getChartColor(index)}
         />
       ) : (
@@ -60,7 +60,6 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
             xDesc: dateArray[index],
             Value: value,
           }))}
-          yAxisDescription={"$ Value"}
           lineColor={getChartColor(index)}
         />
       ) : (
@@ -73,11 +72,13 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
   if (pieChartInfo.length) {
     Charts.push(
       <PieChart
-        key={"pie-chart"}
-        chartData={pieChartInfo.map((chart) => ({
-          name: chart.name,
-          value: chart.values,
-        }))}
+        chartName={title}
+        chartData={pieChartInfo
+          .map((chart) => ({
+            name: chart.name,
+            value: chart.values,
+          }))
+          .filter((chart) => chart.value >= 0)}
       />,
     )
   }
@@ -85,11 +86,13 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
   if (donutChartInfo.length) {
     Charts.push(
       <DonutChart
-        key={"donut-chart"}
-        chartData={donutChartInfo.map((chart) => ({
-          name: chart.name,
-          value: chart.values,
-        }))}
+        chartName={title}
+        chartData={donutChartInfo
+          .map((chart) => ({
+            name: chart.name,
+            value: chart.values,
+          }))
+          .filter((chart) => chart.value >= 0)}
       />,
     )
   }
@@ -104,9 +107,7 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
 
       return item
     })
-    const ColumnStackedChart = (
-      <ColumnStackChart key="column-stacked-chart" chartName={""} chartData={chartData} yAxisDescription={"$ Value"} />
-    )
+    const ColumnStackedChart = <ColumnStackChart key="column-stacked-chart" chartName={title} chartData={chartData} />
 
     Charts.push(ColumnStackedChart)
   }
