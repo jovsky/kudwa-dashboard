@@ -1,3 +1,4 @@
+import Collapse from "@mui/material/Collapse"
 import { FC, PropsWithChildren } from "react"
 import { HiChevronDown, HiChevronUp } from "react-icons/hi2"
 import { IconType } from "react-icons/lib"
@@ -9,7 +10,6 @@ interface CollapseProps extends PropsWithChildren {
   togglerClass?: string
   togglerIcon?: IconType
   complementaryText?: string
-  collapseProps?: React.HTMLAttributes<HTMLDivElement>
   disclosure?: {
     isOpen: boolean
     toggle: () => void
@@ -22,14 +22,13 @@ const Collapsible: FC<CollapseProps> = ({
   togglerClass,
   togglerIcon: Icon,
   complementaryText,
-  collapseProps,
   disclosure,
 }) => {
   const innerDisclosure = useDisclosure(`collapse:${togglerText}`)
   const { isOpen, toggle } = disclosure ?? innerDisclosure
 
   return (
-    <div className="flex flex-col h-fit w-full bg-kudwa-light shadow-soft-left rounded-lg ">
+    <div className="flex flex-col h-fit w-full bg-kudwa-light shadow-soft-left rounded-lg">
       <button
         onClick={toggle}
         className={`flex justify-start items-center
@@ -44,18 +43,16 @@ const Collapsible: FC<CollapseProps> = ({
         {complementaryText && <span className="text-kudwa-brown-700 italic transform-none">{complementaryText}</span>}
         <span className="ml-auto">{isOpen ? <HiChevronUp /> : <HiChevronDown />}</span>
       </button>
-      {isOpen && (
-        <div
-          className={`flex
-            p-6 pr-0 relative w-full h-fit
-            ${isOpen ? "h-fit opacity-100" : "max-h-0 opacity-0"}`}
-          style={{ overflow: isOpen ? "visible" : "hidden" }}
-          {...collapseProps}
-          data-collapse-content
-        >
+      <Collapse
+        in={isOpen}
+        timeout={{ enter: 600, exit: 600 }}
+        unmountOnExit={true}
+        easing={{ enter: "ease-in", exit: "ease-out" }}
+      >
+        <div className="p-6 pr-0 relative w-full h-fit" data-collapse-content>
           {children}
         </div>
-      )}
+      </Collapse>
     </div>
   )
 }
