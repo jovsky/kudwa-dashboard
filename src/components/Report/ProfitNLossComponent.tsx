@@ -24,7 +24,7 @@ const ProfitNLossComponent: React.FC<ProfitNLossComponentProps> = ({ field, peri
         }
 
   return (
-    <div className="rounded-lg p-6 bg-kudwa-light shadow-2xl border-4 border-kudwa-blue">
+    <Collapsible togglerText={field.name} variant="blue">
       <ReportFieldComponent
         field={field}
         otherInfo={otherInfo}
@@ -33,7 +33,7 @@ const ProfitNLossComponent: React.FC<ProfitNLossComponentProps> = ({ field, peri
       />
 
       {field.fields && field.fields.length > 0 && (
-        <Collapsible togglerText={`${field.name} Metrics`} complementaryText={`(${field.fields.length})`} className="bg-gray-200">
+        <Collapsible variant="bg-gray" togglerText={`${field.name} Metrics`} complementaryText={`(${field.fields.length})`}>
           <div className="flex flex-col gap-6">
             {field.fields.map((subfield) => (
               <ProfitNLossComponent key={subfield.id} field={subfield} period={period} />
@@ -41,7 +41,7 @@ const ProfitNLossComponent: React.FC<ProfitNLossComponentProps> = ({ field, peri
           </div>
         </Collapsible>
       )}
-    </div>
+    </Collapsible>
   )
 }
 

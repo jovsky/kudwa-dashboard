@@ -189,3 +189,23 @@ body {
 @utility kudwa-table-cell {
   @apply border border-kudwa-blue px-2 py-1 text-center min-w-[70px];
 }
+
+@utility collapsible-blue {
+  box-shadow: inset 0 0 0px 5px var(--kudwa-blue-400);
+
+  & > .collapsible-toggler {
+    @apply bg-kudwa-blue-400 hover:bg-kudwa-blue-300;
+  }
+}
+
+@utility collapsible-gray {
+  @apply shadow-soft-left;
+
+  & > .collapsible-toggler {
+    @apply bg-gray-200 hover:bg-gray-300;
+  }
+}
+
+@utility collapsible-bg-gray {
+  @apply collapsible-gray bg-gray-200!;
+}

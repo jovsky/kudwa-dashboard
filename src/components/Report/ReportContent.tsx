@@ -47,9 +47,7 @@ const ReportContent: React.FC<ReportContentProps> = ({ reportData, period }) => 
           </div>
         </Collapsible>
 
-        <Collapsible togglerText={"PnL Key Metrics"}>
-          <ProfitNLossComponent field={reportData.reportResult.metrics.pnlKeyMetrics} period={period} />
-        </Collapsible>
+        <ProfitNLossComponent field={reportData.reportResult.metrics.pnlKeyMetrics} period={period} />
 
         <Collapsible
           togglerText={"Computed Fields"}
