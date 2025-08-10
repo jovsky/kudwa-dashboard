@@ -5,8 +5,8 @@ import useDisclosure from "@/hooks/useDisclosure"
 import { ChartInfoUnion, Charts, IMainDashboard } from "@/types/dashboardTypes"
 import filterNull from "@/utils/filterNull"
 
-import ChartMap from "../Charts/ChartMap"
-import Collapsible from "../Collapsible"
+import ChartMap from "../../Charts/ChartMap"
+import Collapsible from "../../Collapsible"
 import ChartCard from "./ChartCard"
 
 type MainDashboardChartInfo = {
@@ -84,8 +84,8 @@ const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashbo
   ]
 
   return (
-    <>
-      <div className="p-4 rounded-lg mb-6">
+    <section className="w-full mb-8">
+      <div className="p-4 mb-6">
         <div className="space-y-2">
           <p>
             <strong>Period:</strong> {mainDashboard.period}
@@ -127,7 +127,7 @@ const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashbo
           ))}
         </div>
       </Collapsible>
-    </>
+    </section>
   )
 }
 

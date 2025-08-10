@@ -3,8 +3,8 @@ import { MdDashboard } from "react-icons/md"
 
 export default {
   dashboard: {
-    route: "/dashboard",
-    name: "Dashboard",
+    route: "/main-dashboard",
+    name: "Main Dashboard",
     icon: MdDashboard,
   },
   report: {
