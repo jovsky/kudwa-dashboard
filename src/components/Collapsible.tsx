@@ -10,6 +10,7 @@ interface CollapseProps extends PropsWithChildren {
   togglerClass?: string
   togglerIcon?: IconType
   complementaryText?: string
+  collapseProps?: React.HTMLProps<HTMLDivElement>
   disclosure?: {
     isOpen: boolean
     toggle: () => void
@@ -22,13 +23,14 @@ const Collapsible: FC<CollapseProps> = ({
   togglerClass,
   togglerIcon: Icon,
   complementaryText,
+  collapseProps,
   disclosure,
 }) => {
   const innerDisclosure = useDisclosure(`collapse:${togglerText}`)
   const { isOpen, toggle } = disclosure ?? innerDisclosure
 
   return (
-    <div className="flex flex-col h-fit w-full bg-kudwa-light shadow-soft-left rounded-lg">
+    <div className={`flex flex-col h-fit w-full bg-kudwa-light shadow-soft-left rounded-lg`} {...collapseProps}>
       <button
         onClick={toggle}
         className={`flex justify-start items-center

@@ -2,12 +2,21 @@ import React, { useCallback, useMemo } from "react"
 import { FaChartBar } from "react-icons/fa"
 
 import useDisclosure from "@/hooks/useDisclosure"
-import { IMainDashboard } from "@/types/dashboardTypes"
+import { ChartInfoUnion, Charts, IMainDashboard } from "@/types/dashboardTypes"
 import filterNull from "@/utils/filterNull"
 
 import ChartMap from "../Charts/ChartMap"
 import Collapsible from "../Collapsible"
 import ChartCard from "./ChartCard"
+
+type MainDashboardChartInfo = {
+  id: keyof Charts
+  name: string
+  data: ChartInfoUnion[]
+  isOpen: boolean
+  toggle: () => void
+  onOpen: () => void
+}
 
 const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashboard }) => {
   const chartDisclosure = useDisclosure("collapse:charts")
@@ -64,7 +73,7 @@ const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashbo
     [manpowerOperatingExpensesDisclosure, buildChartSerieData],
   )
 
-  const series = [
+  const series: MainDashboardChartInfo[] = [
     cashAtBank,
     expenseSplit,
     indirectCashflow,
@@ -92,21 +101,27 @@ const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashbo
 
       <div className="grid grid-rows-2 gap-4 mb-10">
         <div className="grid grid-cols-3 gap-4">
-          {series.slice(0, 3).map(({ name, data, onOpen }) => (
-            <ChartCard key={name} name={name} metricsCount={data.length} Icon={FaChartBar} color="blue" onClick={onOpen} />
+          {series.slice(0, 3).map((props) => (
+            <ChartCard key={props.name} metricsCount={props.data.length} Icon={FaChartBar} color="blue" {...props} />
           ))}
         </div>
         <div className="grid grid-cols-4 gap-4">
-          {series.slice(3).map(({ name, data, onOpen }) => (
-            <ChartCard key={name} name={name} metricsCount={data.length} Icon={FaChartBar} color="yellow" onClick={onOpen} />
+          {series.slice(3, 7).map((props) => (
+            <ChartCard key={props.name} metricsCount={props.data.length} Icon={FaChartBar} color="yellow" {...props} />
           ))}
         </div>
       </div>
 
       <Collapsible togglerText={"Charts"} togglerClass="uppercase" disclosure={chartDisclosure}>
         <div className="flex flex-col w-full p-1 overflow-hidden gap-6">
-          {series.map(({ name, data, ...disclosure }) => (
-            <Collapsible key={name} togglerText={name} complementaryText={`(${data.length} metrics)`} disclosure={disclosure}>
+          {series.map(({ name, data, id, ...disclosure }) => (
+            <Collapsible
+              key={name}
+              collapseProps={{ id }}
+              togglerText={name}
+              complementaryText={`(${data.length} metrics)`}
+              disclosure={disclosure}
+            >
               <ChartMap chartInfo={data} dateArray={mainDashboard.dateArray} />
             </Collapsible>
           ))}
