@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 import api from "@/data/api"
 import { DashboardDataSchema } from "@/schemas/dashboardSchemas"
-import { DashboardData, Period } from "@/types/dashboardTypes"
+import { DashboardData } from "@/types/dashboardTypes"
+import { Period } from "@/types/globalTypes"
 
 interface DashboardState {
   data: DashboardData | null

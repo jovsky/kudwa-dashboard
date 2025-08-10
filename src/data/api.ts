@@ -1,4 +1,5 @@
-import { DashboardData, Period } from "@/types/dashboardTypes"
+import { DashboardData } from "@/types/dashboardTypes"
+import { Period } from "@/types/globalTypes"
 import { ReportData } from "@/types/reportTypes"
 
 // Import JSON data

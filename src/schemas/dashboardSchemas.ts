@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { Period } from "@/types/dashboardTypes"
+import { Period } from "@/types/globalTypes"
 
 const periodValues: Period[] = ["monthly", "quarterly", "yearly"] as const
 

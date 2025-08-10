@@ -1,5 +1,3 @@
-type Period = "monthly" | "quarterly" | "yearly"
-
 export interface DashboardData {
   mainDashboard: IMainDashboard
   mainDashboardKPIs: IMainDashboardKPIs

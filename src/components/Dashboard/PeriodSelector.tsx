@@ -1,6 +1,6 @@
 import { FC } from "react"
 
-import { Period } from "@/types/dashboardTypes"
+import { Period } from "@/types/globalTypes"
 
 const periods: Period[] = ["monthly", "quarterly", "yearly"]
 
