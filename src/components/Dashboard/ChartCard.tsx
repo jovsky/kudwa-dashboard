@@ -27,7 +27,7 @@ const ChartCard: React.FC<ChartCardProps> = ({ name, metricsCount, Icon, color, 
   return (
     <button
       className={`flex ${bgColor} shadow-soft-left px-4 py-2 rounded-lg border-l-2 border-b-2 ${borderColor} items-center select-none 
-      hover:scale-103 transition-transform duration-200 ease-in-out cursor-pointer`}
+      hover:scale-103 transition-transform duration-200 ease-in-out cursor-pointer max-h-[74px]`}
       onClick={onClick}
     >
       <div className="flex flex-col">

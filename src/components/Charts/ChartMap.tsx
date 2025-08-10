@@ -1,5 +1,6 @@
 import { FC } from "react"
 
+import { getChartColor } from "@/data/constants/chartColors"
 import {
   BarChartInfo,
   ChartInfoUnion,
@@ -8,7 +9,6 @@ import {
   LineChartInfo,
   PieChartInfo,
 } from "@/types/dashboardTypes"
-import formatCurrency from "@/utils/formatCurrency"
 
 import BarChart from "./BarChart"
 import ColumnStackChart from "./ColumnStackChart"
@@ -20,8 +20,6 @@ interface ChartMapProps {
   chartInfo: ChartInfoUnion[]
   dateArray: string[]
 }
-
-const colors = ["var(--kudwa-yellow)", "var(--kudwa-blue)", "var(--kudwa-brown)"]
 
 const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
   const lineChartInfo: LineChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "line")
@@ -43,8 +41,7 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
             Value: value,
           }))}
           yAxisDescription={"$ Value"}
-          barColor={colors[index % colors.length]}
-          formatFn={(value) => formatCurrency(value, 0)}
+          barColor={getChartColor(index)}
         />
       ) : (
         <></>
@@ -64,8 +61,7 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
             Value: value,
           }))}
           yAxisDescription={"$ Value"}
-          lineColor={colors[index % colors.length]}
-          formatFn={(value) => formatCurrency(value, 0)}
+          lineColor={getChartColor(index)}
         />
       ) : (
         <></>
@@ -109,13 +105,7 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
       return item
     })
     const ColumnStackedChart = (
-      <ColumnStackChart
-        key="column-stacked-chart"
-        chartName={""}
-        chartData={chartData}
-        yAxisDescription={"$ Value"}
-        formatFn={(value) => formatCurrency(value, 0)}
-      />
+      <ColumnStackChart key="column-stacked-chart" chartName={""} chartData={chartData} yAxisDescription={"$ Value"} />
     )
 
     Charts.push(ColumnStackedChart)

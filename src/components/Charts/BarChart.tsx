@@ -1,25 +1,17 @@
 import { FC, useMemo } from "react"
 import { Bar, BarChart as RBarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
+import formatNumber from "@/utils/formatNumber"
 import sumNumbers from "@/utils/sumNumbers"
-
-import ChartTooltip from "./ChartTooltip"
 
 interface BarChartProps {
   chartName: string
   chartData: Array<{ xDesc: string; Value: number }>
   yAxisDescription: string
   barColor: string
-  formatFn?: (value: number) => string
 }
 
-const BarChart: FC<BarChartProps> = ({
-  chartName,
-  chartData,
-  yAxisDescription,
-  barColor,
-  formatFn = (value) => value.toString(),
-}) => {
+const BarChart: FC<BarChartProps> = ({ chartName, chartData, yAxisDescription, barColor }) => {
   // Take the maximum Y value from the chart data
   const maxValueY = useMemo(() => {
     const maxValue = Math.max(...chartData.map((item) => item.Value))
@@ -34,9 +26,9 @@ const BarChart: FC<BarChartProps> = ({
     <div className="flex flex-col w-full justify-end">
       <div className="w-full">
         <p className="mt-2 items-center text-center text-lg font-bold uppercase">{chartName}</p>
-        <p className="mt-1 text-center">Total: {formatFn(totalItems)}</p>
+        <p className="mt-1 text-center">Total: {formatNumber(totalItems)}</p>
       </div>
-      <ResponsiveContainer width={600} height={300}>
+      <ResponsiveContainer height={300}>
         <RBarChart data={chartData} margin={{ top: 30, left: 20 }} className="outline-none!">
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="xDesc" tick={{ fontSize: 12 }} />
@@ -50,10 +42,10 @@ const BarChart: FC<BarChartProps> = ({
               offset: 15,
               style: { textAnchor: "start", fontSize: 14 },
             }}
-            tickFormatter={formatFn}
+            tickFormatter={(val: number) => formatNumber(val, "truncate")}
           />
-          <Tooltip content={(val) => <ChartTooltip val={val} descKey="xDesc" valueKey="Value" formatFn={formatFn} />} />
-          <Bar dataKey="Value" fill={barColor} stackId="a" isAnimationActive={true} />
+          <Tooltip formatter={(val) => formatNumber(+val, "truncate")} />
+          <Bar dataKey="Value" fill={barColor} stackId="a" isAnimationActive={true} animationDuration={1500} />
         </RBarChart>
       </ResponsiveContainer>
     </div>

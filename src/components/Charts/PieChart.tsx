@@ -1,29 +1,16 @@
 import { FC } from "react"
 import { Cell, Pie, PieChart as RPieChart, ResponsiveContainer, Tooltip } from "recharts"
 
-import ChartTooltip from "./ChartTooltip"
+import { getChartColor } from "@/data/constants/chartColors"
+import formatNumber from "@/utils/formatNumber"
 
 interface PieChartProps {
   chartData: Array<{ name: string; value: number }>
-  formatFn?: (value: number) => string
 }
 
-const colors = [
-  "var(--kudwa-blue-200)",
-  "var(--kudwa-yellow-500)",
-  "var(--kudwa-brown-200)",
-  "var(--kudwa-yellow-600)",
-  "var(--kudwa-blue-300)",
-  "var(--kudwa-brown)",
-  "var(--kudwa-blue-400)",
-  "var(--kudwa-yellow-600)",
-  "var(--kudwa-blue-500)",
-  "var(--kudwa-brown-500)",
-]
-
-const PieChart: FC<PieChartProps> = ({ chartData, formatFn = (value) => value.toString() }) => {
+const PieChart: FC<PieChartProps> = ({ chartData }) => {
   return (
-    <ResponsiveContainer width={600} height={300}>
+    <ResponsiveContainer height={300}>
       <RPieChart>
         <Pie
           data={chartData}
@@ -33,15 +20,15 @@ const PieChart: FC<PieChartProps> = ({ chartData, formatFn = (value) => value.to
           cy="50%"
           innerRadius={0}
           outerRadius={110}
-          paddingAngle={1}
-          label={({ name, value }) => `${name}: ${formatFn(Number(value))}`}
+          paddingAngle={0}
+          label={({ name, value }) => `${name}: ${formatNumber(Number(value))}`}
           isAnimationActive={true}
         >
           {chartData.map((entry, idx) => (
-            <Cell key={entry.name} fill={colors[idx % colors.length]} />
+            <Cell key={entry.name} fill={getChartColor(idx)} />
           ))}
         </Pie>
-        <Tooltip content={(val) => <ChartTooltip val={val} descKey="name" valueKey="value" formatFn={formatFn} />} />
+        <Tooltip formatter={(val) => formatNumber(+val, "truncate")} />
       </RPieChart>
     </ResponsiveContainer>
   )

@@ -1,25 +1,17 @@
 import { FC, useMemo } from "react"
 import { CartesianGrid, Line, LineChart as RLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
+import formatNumber from "@/utils/formatNumber"
 import sumNumbers from "@/utils/sumNumbers"
-
-import ChartTooltip from "./ChartTooltip"
 
 interface LineChartProps {
   chartName: string
   chartData: Array<{ xDesc: string; Value: number }>
   yAxisDescription: string
   lineColor: string
-  formatFn?: (value: number) => string
 }
 
-const LineChart: FC<LineChartProps> = ({
-  chartName,
-  chartData,
-  yAxisDescription,
-  lineColor,
-  formatFn = (value) => value.toString(),
-}) => {
+const LineChart: FC<LineChartProps> = ({ chartName, chartData, yAxisDescription, lineColor }) => {
   // Take the maximum Y value from the chart data
   const maxValueY = useMemo(() => {
     const maxValue = Math.max(...chartData.map((item) => item.Value))
@@ -34,9 +26,9 @@ const LineChart: FC<LineChartProps> = ({
     <div className="w-full">
       <div className="w-full">
         <p className="mt-2 items-center text-center text-lg font-bold uppercase">{chartName}</p>
-        <p className="mt-1 text-center">Total: {formatFn(totalItems)}</p>
+        <p className="mt-1 text-center">Total: {formatNumber(totalItems)}</p>
       </div>
-      <ResponsiveContainer width={600} height={300}>
+      <ResponsiveContainer height={300}>
         <RLineChart data={chartData} margin={{ top: 30, left: 20 }} className="outline-none!">
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="xDesc" tick={{ fontSize: 12 }} />
@@ -50,9 +42,9 @@ const LineChart: FC<LineChartProps> = ({
               offset: 15,
               style: { textAnchor: "start", fontSize: 14 },
             }}
-            tickFormatter={formatFn}
+            tickFormatter={(val: number) => formatNumber(val, "truncate")}
           />
-          <Tooltip content={(val) => <ChartTooltip val={val} descKey="xDesc" valueKey="Value" formatFn={formatFn} />} />
+          <Tooltip formatter={(val) => formatNumber(+val, "truncate")} />
           <Line
             dataKey="Value"
             stroke={lineColor}
