@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react"
+import { FC, memo, useMemo } from "react"
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 import { getChartColor } from "@/data/constants/chartColors"
@@ -59,4 +59,4 @@ const ColumnStackChart: FC<ColumnStackChartProps> = ({ chartName, chartData, yAx
   )
 }
 
-export default ColumnStackChart
+export default memo(ColumnStackChart)

@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, memo } from "react"
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts"
 
 import { getChartColor } from "@/data/constants/chartColors"
@@ -34,4 +34,4 @@ const DonutChart: FC<DonutChartProps> = ({ chartData }) => {
   )
 }
 
-export default DonutChart
+export default memo(DonutChart)

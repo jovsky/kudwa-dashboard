@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, memo } from "react"
 
 import { getChartColor } from "@/data/constants/chartColors"
 import {
@@ -121,4 +121,4 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray }) => {
   )
 }
 
-export default ChartMap
+export default memo(ChartMap)

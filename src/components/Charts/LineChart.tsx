@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react"
+import { FC, memo, useMemo } from "react"
 import { CartesianGrid, Line, LineChart as RLineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 import formatNumber from "@/utils/formatNumber"
@@ -59,4 +59,4 @@ const LineChart: FC<LineChartProps> = ({ chartName, chartData, yAxisDescription,
   )
 }
 
-export default LineChart
+export default memo(LineChart)

@@ -42,4 +42,4 @@ const KPIsTable: React.FC<{ KPIs: KPI[] }> = ({ KPIs }) => (
   </div>
 )
 
-export default KPIsTable
+export default React.memo(KPIsTable)

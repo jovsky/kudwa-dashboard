@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react"
+import { FC, memo, useMemo } from "react"
 import { Bar, BarChart as RBarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 import formatNumber from "@/utils/formatNumber"
@@ -52,4 +52,4 @@ const BarChart: FC<BarChartProps> = ({ chartName, chartData, yAxisDescription, b
   )
 }
 
-export default BarChart
+export default memo(BarChart)
