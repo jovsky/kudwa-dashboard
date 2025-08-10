@@ -10,7 +10,7 @@ interface PieChartProps {
 
 const PieChart: FC<PieChartProps> = ({ chartData }) => {
   return (
-    <ResponsiveContainer height={300}>
+    <ResponsiveContainer height={300} minWidth={500}>
       <RPieChart>
         <Pie
           data={chartData}

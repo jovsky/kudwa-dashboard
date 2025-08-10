@@ -10,7 +10,7 @@ interface DonutChartProps {
 
 const DonutChart: FC<DonutChartProps> = ({ chartData }) => {
   return (
-    <ResponsiveContainer height={300}>
+    <ResponsiveContainer height={300} minWidth={500}>
       <PieChart>
         <Pie
           data={chartData}

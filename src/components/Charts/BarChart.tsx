@@ -28,7 +28,7 @@ const BarChart: FC<BarChartProps> = ({ chartName, chartData, yAxisDescription, b
         <p className="mt-2 items-center text-center text-lg font-bold uppercase">{chartName}</p>
         <p className="mt-1 text-center">Total: {formatNumber(totalItems)}</p>
       </div>
-      <ResponsiveContainer height={300}>
+      <ResponsiveContainer height={300} minWidth={500}>
         <RBarChart data={chartData} margin={{ top: 30, left: 20 }} className="outline-none!">
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="xDesc" tick={{ fontSize: 12 }} />
