@@ -8,9 +8,9 @@ import { AppDispatch, RootState } from "@/store"
 import { changePeriod, fetchReportData } from "@/store/slices/reportSlice"
 
 import Button from "../Button"
-import PeriodSelector from "../Dashboard/PeriodSelector"
 import LoadingScreen from "../LoadingScreen"
 import PageTitle from "../PageTitle"
+import PeriodSelector from "../PeriodSelector"
 import ReportContent from "./ReportContent"
 
 const Report: React.FC = () => {

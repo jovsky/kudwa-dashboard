@@ -14,7 +14,7 @@ import LoadingScreen from "../LoadingScreen"
 import PageTitle from "../PageTitle"
 import MainDashboard from "./MainDashboard"
 import MainDashboardKPIs from "./MainDashboardKPIs"
-import PeriodSelector from "./PeriodSelector"
+import PeriodSelector from "../PeriodSelector"
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()

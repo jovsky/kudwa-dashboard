@@ -8,7 +8,7 @@ import { ReportData } from "@/types/reportTypes"
 import ProfitNLossComponent from "./ProfitNLossComponent"
 
 const ReportContent: React.FC<{ reportData: ReportData }> = ({ reportData }) => {
-  const { period } = useSelector((state: RootState) => state.dashboard)
+  const { period } = useSelector((state: RootState) => state.report)
 
   return (
     <div className="py-2 px-6 overflow-y-auto">
