@@ -1,14 +1,13 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { IoMdRefresh } from "react-icons/io"
 import { useDispatch, useSelector } from "react-redux"
 
 import pageDefs from "@/app/pageDefs"
 import type { AppDispatch } from "@/store"
 import { RootState } from "@/store"
-import { fetchDashboardData } from "@/store/slices/dashboardSlice"
-import { Period } from "@/types/dashboardTypes"
+import { changePeriod, fetchDashboardData } from "@/store/slices/dashboardSlice"
 
 import Button from "../Button"
 import LoadingScreen from "../LoadingScreen"
@@ -18,13 +17,12 @@ import MainDashboardKPIs from "./MainDashboardKPIs"
 import PeriodSelector from "./PeriodSelector"
 
 const Dashboard: React.FC = () => {
-  const [selectedPeriod, setSelectedPeriod] = useState<Period>("monthly")
   const dispatch = useDispatch<AppDispatch>()
-  const { data, loading, error } = useSelector((state: RootState) => state.dashboard)
+  const { data, loading, error, period } = useSelector((state: RootState) => state.dashboard)
 
   useEffect(() => {
-    dispatch(fetchDashboardData(selectedPeriod))
-  }, [dispatch, selectedPeriod])
+    dispatch(fetchDashboardData(period))
+  }, [dispatch, period])
 
   if (error) {
     throw new Error(`Error fetching dashboard data: ${error}`)
@@ -35,11 +33,11 @@ const Dashboard: React.FC = () => {
       <div className="flex items-center w-full border-b border-gray-200 gap-10 py-4">
         <PageTitle title={pageDefs.dashboard.name} />
         <div className="flex items-center gap-10 ml-auto">
-          <PeriodSelector period={selectedPeriod} onPeriodChange={setSelectedPeriod} disabled={loading} />
+          <PeriodSelector period={period} onPeriodChange={(p) => dispatch(changePeriod(p))} disabled={loading} />
           <Button
             size="md"
             icon={IoMdRefresh}
-            onClick={() => dispatch(fetchDashboardData(selectedPeriod))}
+            onClick={() => dispatch(fetchDashboardData(period))}
             variant="success"
             disabled={loading}
           />

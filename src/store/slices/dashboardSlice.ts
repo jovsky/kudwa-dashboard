@@ -8,12 +8,14 @@ interface DashboardState {
   data: DashboardData | null
   loading: boolean
   error: string | null
+  period: Period
 }
 
 const initialState: DashboardState = {
   data: null,
   loading: false,
   error: null,
+  period: "monthly",
 }
 
 export const fetchDashboardData = createAsyncThunk<DashboardData, Period, { rejectValue: string }>(
@@ -37,7 +39,11 @@ export const fetchDashboardData = createAsyncThunk<DashboardData, Period, { reje
 const dashboardSlice = createSlice({
   name: "dashboard",
   initialState,
-  reducers: {},
+  reducers: {
+    changePeriod: (state, action) => {
+      state.period = action.payload
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchDashboardData.pending, (state) => {
@@ -54,5 +60,7 @@ const dashboardSlice = createSlice({
       })
   },
 })
+
+export const { changePeriod } = dashboardSlice.actions
 
 export const dashboardReducer = dashboardSlice.reducer
