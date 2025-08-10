@@ -1,9 +1,8 @@
-import React, { useMemo } from "react"
+import React from "react"
 
 import { Period } from "@/types/globalTypes"
 import { ReportField, UniqueReference } from "@/types/reportTypes"
 import formatDateTime from "@/utils/formatDateTime"
-import toTitleCase from "@/utils/toTitleCase"
 
 import FieldsList from "../FieldsList"
 import ActualDataComponent from "./ActualDataComponent"
@@ -18,8 +17,6 @@ interface ReportFieldComponentProps {
 }
 
 const ReportFieldComponent: React.FC<ReportFieldComponentProps> = ({ field, otherInfo, period, uniqueReference }) => {
-  const slots = useMemo(() => Array.from({ length: field.result.length }, (_, i) => `T${i + 1}`), [field.result.length])
-
   return (
     <div className="rounded-lg mb-4 bg-kudwa-light">
       <div className="font-bold text-lg mb-2">{field.name}</div>
@@ -40,41 +37,7 @@ const ReportFieldComponent: React.FC<ReportFieldComponentProps> = ({ field, othe
 
       <ActualDataComponent actualData={field.actualData} />
 
-      <div className="mt-2">
-        <p className="text-gray-500 text-md font-semibold">
-          {field.name} {toTitleCase(period)} Data Table
-        </p>
-        <div className="flex flex-col gap-4 overflow-x-scroll py-3">
-          {period === "monthly" ? (
-            <ReportTable
-              headDescriptions={slots}
-              rows={{
-                "Monthly Result": field.result,
-                "Monthly Total Result": field.totalResult,
-                "Monthly Past Month": field.pastMonth,
-              }}
-            />
-          ) : period === "quarterly" ? (
-            <ReportTable
-              headDescriptions={slots}
-              rows={{
-                "Quarterly Result": field.quarterly,
-                "Quarterly Total Result": field.quarterlyResult,
-                "Quarterly Past Month": field.quarterlyPastMonth,
-              }}
-            />
-          ) : (
-            <ReportTable
-              headDescriptions={slots}
-              rows={{
-                "Yearly Result": field.yearly,
-                "Yearly Total Result": field.yearlyResult,
-                "Yearly Past Month": field.yearlyPastMonth,
-              }}
-            />
-          )}
-        </div>
-      </div>
+      <ReportTable field={field} period={period} />
     </div>
   )
 }

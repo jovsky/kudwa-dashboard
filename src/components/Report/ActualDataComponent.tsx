@@ -1,10 +1,11 @@
 import React, { useMemo } from "react"
 
 import { ActualData } from "@/types/reportTypes"
+import formatCurrency from "@/utils/formatCurrency"
 import formatDateTime from "@/utils/formatDateTime"
 
 import FieldsList from "../FieldsList"
-import ReportTable from "./ReportTable"
+import Table from "../Table"
 
 interface ActualDataComponentProps {
   actualData: ActualData[]
@@ -37,9 +38,7 @@ const ActualDataComponent: React.FC<ActualDataComponentProps> = ({ actualData })
               }}
             />
           </div>
-          <div className="flex flex-col gap-4 overflow-x-scroll py-3">
-            <ReportTable headDescriptions={slots} rows={{ Values: data.value }} />
-          </div>
+          <Table rows={{ Values: data.value }} headDescriptions={slots} format={formatCurrency} />
         </>
       ) : (
         <div className="flex-1 text-center">No actual data available.</div>

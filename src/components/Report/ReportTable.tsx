@@ -1,38 +1,53 @@
-import React from "react"
+import React, { useMemo } from "react"
 
+import { Period } from "@/types/globalTypes"
+import { ComputedField, ReportField } from "@/types/reportTypes"
 import formatCurrency from "@/utils/formatCurrency"
+import toTitleCase from "@/utils/toTitleCase"
+
+import Table from "../Table"
 
 interface ReportTableProps {
-  headDescriptions: string[]
-  rows: Record<string, number[]>
+  field: ComputedField | ReportField
+  period: Period
 }
 
-const ReportTable: React.FC<ReportTableProps> = ({ headDescriptions, rows }) => {
+const buildTableRows = (field: ComputedField | ReportField, period: Period): Record<string, number[]> => {
+  if (period === "monthly") {
+    return {
+      Result: field.result,
+      ...(field.totalResult ? { "Total Result": field.totalResult } : {}),
+      "Past Month": field.pastMonth,
+    }
+  }
+
+  if (period === "quarterly") {
+    return {
+      Result: field.quarterly,
+      "Total Result": "currentQuarterActual" in field ? field.currentQuarterActual : field.quarterlyResult,
+      "Past Month": field.quarterlyPastMonth,
+    }
+  }
+
+  return {
+    Result: field.yearly,
+    "Total Result": "currentYearActual" in field ? field.currentYearActual : field.yearlyResult,
+    "Past Month": field.yearlyPastMonth,
+  }
+}
+
+const ReportTable: React.FC<ReportTableProps> = ({ field, period }) => {
+  const rows = buildTableRows(field, period)
+
+  const headDescriptions = useMemo(() => Array.from({ length: Object.values(rows)[0].length }, (_, i) => `T${i + 1}`), [rows])
+
   return (
-    <table className="min-w-full border border-kudwa-blue bg-kudwa-blue-100 rounded-lg text-sm whitespace-nowrap text-kudwa-blue-700">
-      <thead>
-        <tr className="bg-kudwa-blue-300">
-          <th className={`report-table-cell font-semibold`}>Slot</th>
-          {headDescriptions.map((headDesc) => (
-            <th key={headDesc} className="report-table-cell">
-              {headDesc}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {Object.entries(rows).map(([label, values]) => (
-          <tr key={label}>
-            <td className={`report-table-cell font-semibold text-start`}>{label}</td>
-            {values.map((value, i) => (
-              <td key={`${label}-${i}`} className={`report-table-cell ${value ? "font-semibold" : "opacity-50"}`}>
-                {formatCurrency(value) ?? "-"}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="mt-2">
+      <p className="text-gray-500 text-md font-semibold">
+        {field.name} | {toTitleCase(period)} Data Table
+      </p>
+      <Table headDescriptions={headDescriptions} rows={rows} format={formatCurrency} />
+    </div>
   )
 }
 

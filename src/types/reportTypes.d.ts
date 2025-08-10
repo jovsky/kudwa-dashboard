@@ -69,16 +69,16 @@ export interface ActualData {
 }
 
 export interface ComputedField {
+  name: string
   result: number[]
+  totalResult?: number[]
   pastMonth: number[]
   yearly: number[]
-  quarterly: number[]
-  yearlyPastMonth: number[]
-  quarterlyPastMonth: number[]
   currentYearActual: number[]
+  yearlyPastMonth: number[]
+  quarterly: number[]
   currentQuarterActual: number[]
-  name: string
-  totalResult?: number[]
+  quarterlyPastMonth: number[]
 }
 
 export interface Metrics {

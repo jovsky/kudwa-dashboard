@@ -186,6 +186,6 @@ body {
   outline: none !important;
 }
 
-@utility report-table-cell {
+@utility kudwa-table-cell {
   @apply border border-kudwa-blue px-2 py-1 text-center min-w-[70px];
 }
