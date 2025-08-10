@@ -5,7 +5,9 @@ import { Period } from "@/types/globalTypes"
 import { ReportData } from "@/types/reportTypes"
 import formatMonthYear from "@/utils/formatMonthYear"
 
+import Collapsible from "../Collapsible"
 import ProfitNLossComponent from "./ProfitNLossComponent"
+import ReportTable from "./ReportTable"
 
 interface ReportContentProps {
   reportData: ReportData
@@ -34,9 +36,31 @@ const ReportContent: React.FC<ReportContentProps> = ({ reportData, period }) => 
       </div>
 
       <div className="flex flex-col gap-6">
-        {reportData.reportResult.profitnLoss.map((field) => (
-          <ProfitNLossComponent key={field.id} field={field} period={period} />
-        ))}
+        <Collapsible
+          togglerText={"Profit & Loss Overview"}
+          complementaryText={`(${reportData.reportResult.profitnLoss.length} metrics)`}
+        >
+          <div className="flex flex-col gap-6">
+            {reportData.reportResult.profitnLoss.map((field) => (
+              <ProfitNLossComponent key={field.id} field={field} period={period} />
+            ))}
+          </div>
+        </Collapsible>
+
+        <Collapsible togglerText={"PnL Key Metrics"}>
+          <ProfitNLossComponent field={reportData.reportResult.metrics.pnlKeyMetrics} period={period} />
+        </Collapsible>
+
+        <Collapsible
+          togglerText={"Computed Fields"}
+          complementaryText={`(${reportData.reportResult.computedFields.length} metrics)`}
+        >
+          <div className="flex flex-col gap-6">
+            {reportData.reportResult.computedFields.map((field) => (
+              <ReportTable key={field.name} field={field} period={period} />
+            ))}
+          </div>
+        </Collapsible>
       </div>
     </div>
   )
