@@ -1,11 +1,21 @@
 import { z } from "zod"
 
+import {
+  ActualData,
+  ComputedField,
+  Metrics,
+  ProfitNLoss,
+  ProfitNLossField,
+  ReportData,
+  UniqueReference,
+} from "@/types/reportTypes"
+
 // Enums
 const SourceTypeEnum = z.enum(["Account", "Report"])
 const SourceEnum = z.enum(["model", "quickbooksonlinesandbox"])
 
 // UniqueReference
-export const UniqueReferenceSchema = z.object({
+export const UniqueReferenceSchema: z.ZodType<UniqueReference> = z.object({
   sheetType: z.string(),
   integrationSourceId: z.number().nullable(),
   sourceType: SourceTypeEnum,
@@ -15,7 +25,7 @@ export const UniqueReferenceSchema = z.object({
 })
 
 // ActualData
-export const ActualDataSchema = z.object({
+export const ActualDataSchema: z.ZodType<ActualData> = z.object({
   id: z.number(),
   topLevelFieldId: z.number().nullable(),
   fieldId: z.number(),
@@ -28,7 +38,7 @@ export const ActualDataSchema = z.object({
 })
 
 // Field
-export const ProfitNLossFieldSchema = z.object({
+export const ProfitNLossFieldSchema: z.ZodType<ProfitNLossField> = z.object({
   id: z.number(),
   topLevelFieldId: z.number(),
   name: z.string(),
@@ -52,11 +62,11 @@ export const ProfitNLossFieldSchema = z.object({
   quarterlyPastMonth: z.array(z.number()),
   yearlyResult: z.array(z.number()),
   quarterlyResult: z.array(z.number()),
-  // field: z.never(),
+  fields: z.array(z.any()).optional(),
 })
 
 // ProfitNLoss
-export const ProfitNLossSchema = z.object({
+export const ProfitNLossSchema: z.ZodType<ProfitNLoss> = z.object({
   id: z.number(),
   financialReportId: z.number(),
   name: z.string(),
@@ -80,12 +90,12 @@ export const ProfitNLossSchema = z.object({
 })
 
 // Metrics
-export const MetricsSchema = z.object({
+export const MetricsSchema: z.ZodType<Metrics> = z.object({
   pnlKeyMetrics: ProfitNLossSchema,
 })
 
 // ComputedField
-export const ComputedFieldSchema = z.object({
+export const ComputedFieldSchema: z.ZodType<ComputedField> = z.object({
   result: z.array(z.number()),
   pastMonth: z.array(z.number()),
   yearly: z.array(z.number()),
@@ -99,7 +109,7 @@ export const ComputedFieldSchema = z.object({
 })
 
 // ReportData
-export const ReportDataSchema = z.object({
+export const ReportDataSchema: z.ZodType<ReportData> = z.object({
   reportResult: z.object({
     id: z.number(),
     scenarioId: z.number(),

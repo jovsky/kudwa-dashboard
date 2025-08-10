@@ -15,22 +15,24 @@ interface CollapseProps extends PropsWithChildren {
     isOpen: boolean
     toggle: () => void
   }
+  className?: string
 }
 
 const Collapsible: FC<CollapseProps> = ({
   children,
-  togglerText,
-  togglerClass,
+  togglerText = "",
+  togglerClass = "",
   togglerIcon: Icon,
-  complementaryText,
+  complementaryText = "",
   collapseProps,
   disclosure,
+  className = "",
 }) => {
   const innerDisclosure = useDisclosure(`collapse:${togglerText}`)
   const { isOpen, toggle } = disclosure ?? innerDisclosure
 
   return (
-    <div className={`flex flex-col h-fit w-full bg-kudwa-light shadow-soft-left rounded-lg`} {...collapseProps}>
+    <div className={`flex flex-col h-fit w-full shadow-soft-left rounded-lg ${className}`} {...collapseProps}>
       <button
         onClick={toggle}
         className={`flex justify-start items-center
@@ -40,10 +42,10 @@ const Collapsible: FC<CollapseProps> = ({
                   ${isOpen ? "rounded-b-none" : "rounded-b-lg"}
                   `}
       >
+        <span>{isOpen ? <HiChevronUp /> : <HiChevronDown />}</span>
         {Icon && <span className="text-lg md:text-2xl mr-2">{<Icon />}</span>}
         <span className="font-semibold">{togglerText}</span>
         {complementaryText && <span className="text-kudwa-brown-700 italic transform-none">{complementaryText}</span>}
-        <span className="ml-auto">{isOpen ? <HiChevronUp /> : <HiChevronDown />}</span>
       </button>
       <Collapse
         in={isOpen}
@@ -51,7 +53,7 @@ const Collapsible: FC<CollapseProps> = ({
         unmountOnExit={true}
         easing={{ enter: "ease-in", exit: "ease-out" }}
       >
-        <div className="p-6 pr-0 relative w-full h-fit" data-collapse-content>
+        <div className={`p-6 relative w-full h-fit`} data-collapse-content>
           {children}
         </div>
       </Collapse>

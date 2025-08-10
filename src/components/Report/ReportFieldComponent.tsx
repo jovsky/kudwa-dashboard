@@ -14,7 +14,7 @@ interface ReportFieldComponentProps {
 
 const ReportFieldComponent: React.FC<ReportFieldComponentProps> = ({ field, otherInfo, period }) => {
   return (
-    <div className="rounded-lg p-4 mb-4 bg-kudwa-light">
+    <div className="rounded-lg mb-4 bg-kudwa-light">
       <div className="font-bold text-lg mb-2">{field.name}</div>
 
       <div className="flex gap-10">

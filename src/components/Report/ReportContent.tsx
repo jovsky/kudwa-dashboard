@@ -27,9 +27,11 @@ const ReportContent: React.FC<{ reportData: ReportData }> = ({ reportData }) => 
         </p>
       </div>
 
-      {reportData.reportResult.profitnLoss.map((field) => (
-        <ProfitNLossComponent key={field.id} field={field} period={period} />
-      ))}
+      <div className="flex flex-col gap-6">
+        {reportData.reportResult.profitnLoss.map((field) => (
+          <ProfitNLossComponent key={field.id} field={field} period={period} />
+        ))}
+      </div>
     </div>
   )
 }
