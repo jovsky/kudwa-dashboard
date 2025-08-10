@@ -15,11 +15,11 @@ export interface IMainDashboard {
 }
 
 export interface Charts {
-  cashAtBank: (ChartInfoUnion | null)[]
-  expenseSplit: (ChartInfoUnion | null)[]
-  indirectCashflow: (ChartInfoUnion | null)[]
-  totalRevenuesSplit: (ChartInfoUnion | null)[]
-  profitLossOverview: (ChartInfoUnion | null)[]
+  cashAtBank: (LineChartInfo | null)[]
+  expenseSplit: (DonutChartInfo | null)[]
+  indirectCashflow: (BarChartInfo | null)[]
+  totalRevenuesSplit: (PieChartInfo | null)[]
+  profitLossOverview: (LineChartInfo | ColumnStackedChartInfo | null)[]
   salariesSplit: (ChartInfoUnion | null)[]
   ManpowerOperatingExpenses: (ChartInfoUnion | null)[]
 }

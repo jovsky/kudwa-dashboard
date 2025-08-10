@@ -39,11 +39,11 @@ const ChartInfoUnionSchema = z.union([
 ])
 
 export const ChartsSchema = z.object({
-  cashAtBank: z.array(ChartInfoUnionSchema.or(z.null())),
-  expenseSplit: z.array(ChartInfoUnionSchema.or(z.null())),
-  indirectCashflow: z.array(ChartInfoUnionSchema.or(z.null())),
-  totalRevenuesSplit: z.array(ChartInfoUnionSchema.or(z.null())),
-  profitLossOverview: z.array(ChartInfoUnionSchema.or(z.null())),
+  cashAtBank: z.array(LineChartInfoSchema.or(z.null())),
+  expenseSplit: z.array(DonutChartInfoSchema.or(z.null())),
+  indirectCashflow: z.array(BarChartInfoSchema.or(z.null())),
+  totalRevenuesSplit: z.array(PieChartInfoSchema.or(z.null())),
+  profitLossOverview: z.array(LineChartInfoSchema.or(ColumnStackedChartInfoSchema).or(z.null())),
   salariesSplit: z.array(ChartInfoUnionSchema.or(z.null())),
   ManpowerOperatingExpenses: z.array(ChartInfoUnionSchema.or(z.null())),
 })
