@@ -90,7 +90,7 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-@utility btn-base {
+.btn-default {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -102,13 +102,15 @@ body {
   transition: 0.15s;
   width: fit-content;
   user-select: none;
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  $:active {
-    border: inherit;
-  }
+}
+
+.btn-default:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-default:active {
+  border: inherit;
 }
 
 @utility btn-sm {

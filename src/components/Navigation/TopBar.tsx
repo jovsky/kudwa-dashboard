@@ -17,7 +17,7 @@ const TopBar: FC = () => {
         size="md"
         icon={RiMenuLine}
         onClick={() => dispatch(toggleSidebar())}
-        className="border-kudwa-brown-200 mr-4 visible md:hidden"
+        className="border-kudwa-brown-200 mr-4 visible md:hidden!"
       />
       <Logo />
       <div className="ml-auto pl-8">

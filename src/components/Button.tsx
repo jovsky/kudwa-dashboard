@@ -44,7 +44,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
       onClick={onClick}
       disabled={disabled}
       aria-label={ariaLabel}
-      className={`btn-base
+      className={`btn-default
         ${sizeClassOptions[size]} 
         ${variantClassOptions[variant]} 
         ${className}`}

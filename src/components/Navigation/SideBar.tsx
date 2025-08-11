@@ -59,7 +59,7 @@ const SideBar: FC = () => {
             }
             size={"md"}
             variant={page.route.includes(currentRoute) ? "tertiary" : "primary"}
-            className={isOpen ? "w-full gap-2 border-transparent!" : "w-fit gap-0"}
+            className={isOpen ? "w-full! gap-2 border-transparent!" : "w-fit gap-0"}
             onClick={changeRoute.bind(null, page.route)}
           />
         ))}

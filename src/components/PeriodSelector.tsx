@@ -20,7 +20,7 @@ const PeriodSelector: FC<PeriodSelectorProps> = ({ period, onPeriodChange, disab
           <button
             key={p}
             onClick={() => onPeriodChange(p)}
-            className={`btn-base btn-md ${p === period ? "btn-tertiary" : "btn-primary"}`}
+            className={`btn-default btn-md ${p === period ? "btn-tertiary" : "btn-primary"}`}
             disabled={disabled}
           >
             {toTitleCase(p)}
