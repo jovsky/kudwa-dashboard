@@ -41,7 +41,7 @@ const Collapsible: FC<CollapseProps> = ({
         className={`collapsible-toggler flex justify-start items-center
                   text-center h-10 w-full px-6 bg-gray-200
                   hover:bg-gray-300 rounded-t-lg
-                  gap-4 text-xs md:text-base cursor-pointer ${togglerClass}
+                  gap-4 text-base cursor-pointer ${togglerClass}
                   ${isOpen ? "rounded-b-none" : "rounded-b-lg"}
                   `}
       >

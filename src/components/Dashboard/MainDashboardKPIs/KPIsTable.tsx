@@ -26,9 +26,9 @@ const KPIsTable: React.FC<{ KPIs: KPI[] }> = ({ KPIs }) => (
             className="border-t border-kudwa-brown-200 hover:bg-kudwa-brown-200 transition-all duration-200 ease-in-out"
           >
             <td className="py-2 px-4 font-medium text-kudwa-brown-700">{kpi.name}</td>
-            <td className="py-2 px-4 text-kudwa-blue font-semibold">{formatCurrency(kpi.value)}</td>
+            <td className="py-2 px-4 text-kudwa-blue font-semibold whitespace-nowrap">{formatCurrency(kpi.value)}</td>
             <td
-              className={`py-2 px-4 font-semibold ${
+              className={`py-2 px-4 font-semibold whitespace-nowrap ${
                 kpi.mom > 0 ? "text-green-600" : kpi.mom < 0 ? "text-red-600" : "text-gray-600"
               }`}
             >

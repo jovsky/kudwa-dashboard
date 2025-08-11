@@ -12,9 +12,9 @@ import { changePeriod, fetchDashboardData } from "@/store/slices/dashboardSlice"
 import Button from "../Button"
 import LoadingScreen from "../LoadingScreen"
 import PageTitle from "../PageTitle"
+import PeriodSelector from "../PeriodSelector"
 import MainDashboard from "./MainDashboard"
 import MainDashboardKPIs from "./MainDashboardKPIs"
-import PeriodSelector from "../PeriodSelector"
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -30,9 +30,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <div className="flex items-center w-full border-b border-gray-200 gap-10 py-4">
+      <div className="flex items-center w-full border-b border-gray-200 gap-6 py-4 flex-col md:flex-row justify-between">
         <PageTitle title={pageDefs.dashboard.name} />
-        <div className="flex items-center gap-10 ml-auto">
+        <div className="flex items-center gap-10 ">
           <PeriodSelector period={period} onPeriodChange={(p) => dispatch(changePeriod(p))} disabled={loading} />
           <Button
             size="md"
@@ -46,7 +46,7 @@ const Dashboard: React.FC = () => {
       {loading ? (
         <LoadingScreen />
       ) : data ? (
-        <div className="flex flex-col pt-2 px-6 pb-20 overflow-y-auto">
+        <div className="flex flex-col pt-2 px-2 pr-0 md:px-6 pb-20 overflow-y-auto">
           <MainDashboard mainDashboard={data.mainDashboard} />
           <div className="w-full border-b border-gray-200 h-1 mt-14 mb-8"></div>
           <MainDashboardKPIs mainDashboardKPIs={data.mainDashboardKPIs} />

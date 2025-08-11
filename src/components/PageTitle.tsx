@@ -5,7 +5,7 @@ interface PageTitleProps {
 }
 
 const PageTitle: React.FC<PageTitleProps> = ({ title }) => (
-  <h1 style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "1rem" }}>{title}</h1>
+  <h1 className="text-kudwa-dark text-3xl font-bold text-center whitespace-nowrap w-full md:w-fit">{title}</h1>
 )
 
 export default PageTitle

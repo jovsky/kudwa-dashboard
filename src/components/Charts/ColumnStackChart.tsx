@@ -29,7 +29,7 @@ const ColumnStackChart: FC<ColumnStackChartProps> = ({ chartName, chartData }) =
         <p className="mt-1 text-center">Total: {formatCurrency(totalItems)}</p>
       </div>
       <ResponsiveContainer height={300} minWidth={500}>
-        <BarChart data={chartData} margin={{ top: 30, left: 20 }} className="outline-none!">
+        <BarChart data={chartData} margin={{ top: 30, left: 10 }} className="outline-none!">
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="xDesc" tick={{ fontSize: 12 }} />
           <YAxis

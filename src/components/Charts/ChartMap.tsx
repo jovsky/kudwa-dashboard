@@ -29,7 +29,7 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray, title }) => {
   const pieChartInfo: PieChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "pie")
   const columnStackedChartInfo: ColumnStackedChartInfo[] = chartInfo.filter((chart) => chart?.chartType === "columnStacked")
 
-  const Charts: React.ReactNode[] = []
+  const Charts: React.FC[] = []
 
   if (barChartInfo.length) {
     const BarCharts = barChartInfo.map((chart, index) =>
@@ -47,7 +47,7 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray, title }) => {
         <></>
       ),
     )
-    Charts.push(...BarCharts)
+    Charts.push(...BarCharts.map((Chart) => () => Chart))
   }
 
   if (lineChartInfo.length) {
@@ -66,11 +66,11 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray, title }) => {
         <></>
       ),
     )
-    Charts.push(...LineCharts)
+    Charts.push(...LineCharts.map((Chart) => () => Chart))
   }
 
   if (pieChartInfo.length) {
-    Charts.push(
+    Charts.push(() => (
       <PieChart
         chartName={title}
         chartData={pieChartInfo
@@ -79,12 +79,12 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray, title }) => {
             value: chart.values,
           }))
           .filter((chart) => chart.value >= 0)}
-      />,
-    )
+      />
+    ))
   }
 
   if (donutChartInfo.length) {
-    Charts.push(
+    Charts.push(() => (
       <DonutChart
         chartName={title}
         chartData={donutChartInfo
@@ -93,8 +93,8 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray, title }) => {
             value: chart.values,
           }))
           .filter((chart) => chart.value >= 0)}
-      />,
-    )
+      />
+    ))
   }
 
   if (columnStackedChartInfo.length) {
@@ -109,15 +109,23 @@ const ChartMap: FC<ChartMapProps> = ({ chartInfo, dateArray, title }) => {
     })
     const ColumnStackedChart = <ColumnStackChart key="column-stacked-chart" chartName={title} chartData={chartData} />
 
-    Charts.push(ColumnStackedChart)
+    Charts.push(() => ColumnStackedChart)
   }
 
   return (
     <div
-      className={`flex overflow-x-auto overflow-y-hidden gap-20 px-10 py-4 
+      className={`flex overflow-hidden md:overflow-x-auto gap-4 md:gap-20 px-2 md:px-10 py-4 flex-col md:flex-row
     ${Charts.length > 1 ? "w-min-[680px]" : "w-full justify-center"}`}
     >
-      {Charts.length ? Charts : <span>No chart data available</span>}
+      {Charts.length ? (
+        Charts.map((Chart, index) => (
+          <div key={index} className="flex-shrink-0">
+            <Chart />
+          </div>
+        ))
+      ) : (
+        <span>No chart data available</span>
+      )}
     </div>
   )
 }

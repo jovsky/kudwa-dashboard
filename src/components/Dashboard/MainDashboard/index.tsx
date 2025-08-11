@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo } from "react"
-import { FaChartBar } from "react-icons/fa"
 
 import useDisclosure from "@/hooks/useDisclosure"
 import { ChartInfoUnion, Charts, IMainDashboard } from "@/types/dashboardTypes"
@@ -7,9 +6,9 @@ import filterNull from "@/utils/filterNull"
 
 import ChartMap from "../../Charts/ChartMap"
 import Collapsible from "../../Collapsible"
-import ChartCard from "./ChartCard"
+import ChartCardsGrid from "./ChartCardsGrid"
 
-type MainDashboardChartInfo = {
+export type MainDashboardChartInfo = {
   id: keyof Charts
   name: string
   data: ChartInfoUnion[]
@@ -74,7 +73,7 @@ const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashbo
     [manpowerOperatingExpensesDisclosure, buildChartSerieData],
   )
 
-  const series: MainDashboardChartInfo[] = [
+  const chartsInfo: MainDashboardChartInfo[] = [
     cashAtBank,
     expenseSplit,
     indirectCashflow,
@@ -100,21 +99,10 @@ const MainDashboard: React.FC<{ mainDashboard: IMainDashboard }> = ({ mainDashbo
         </div>
       </div>
 
-      <div className="grid grid-rows-2 gap-4 mb-10">
-        <div className="grid grid-cols-3 gap-4">
-          {series.slice(0, 3).map(({ data, ...props }) => (
-            <ChartCard key={props.name} metricsCount={data.length} Icon={FaChartBar} color="blue" {...props} />
-          ))}
-        </div>
-        <div className="grid grid-cols-4 gap-4">
-          {series.slice(3, 7).map(({ data, ...props }) => (
-            <ChartCard key={props.name} metricsCount={data.length} Icon={FaChartBar} color="yellow" {...props} />
-          ))}
-        </div>
-      </div>
+      <ChartCardsGrid chartsInfo={chartsInfo} />
 
       <div className="flex flex-col w-full p-1 overflow-hidden gap-6">
-        {series.map(({ name, data, id, ...disclosure }) => (
+        {chartsInfo.map(({ name, data, id, ...disclosure }) => (
           <Collapsible
             key={name}
             collapseProps={{ id }}
