@@ -3,9 +3,11 @@ import React from "react"
 
 import { Period } from "@/types/globalTypes"
 import { ReportData } from "@/types/reportTypes"
+import formatDateTime from "@/utils/formatDateTime"
 import formatMonthYear from "@/utils/formatMonthYear"
 
 import Collapsible from "../Collapsible"
+import FieldsList from "../FieldsList"
 import ProfitNLossComponent from "./ProfitNLossComponent"
 import ReportTable from "./ReportTable"
 
@@ -20,20 +22,16 @@ const ReportContent: React.FC<ReportContentProps> = ({ reportData, period }) => 
 
   return (
     <div className="py-2 px-6 overflow-y-auto">
-      <div className="bg-kudwa-light p-4 rounded-lg space-y-2">
-        <p>
-          <span className="font-semibold">Report ID:</span> {reportData.reportResult.id}
-        </p>
-        <p>
-          <span className="font-semibold">Scenario ID:</span> {reportData.reportResult.scenarioId}
-        </p>
-        <p>
-          <span className="font-semibold">Date Range:</span> {startDate} - {endDate}
-        </p>
-        <p>
-          <span className="font-semibold">Profit & Loss Items:</span> {reportData.reportResult.profitnLoss.length}
-        </p>
-      </div>
+      <FieldsList
+        list={{
+          "Report ID": reportData.reportResult.id,
+          "Scenario ID": reportData.reportResult.scenarioId,
+          "Date Range": `${startDate} - ${endDate}`,
+          "Created At": formatDateTime(reportData.reportResult.createdAt),
+          "Updated At": formatDateTime(reportData.reportResult.updatedAt),
+        }}
+        className="my-6"
+      />
 
       <div className="flex flex-col gap-6 mb-6">
         <Collapsible

@@ -27,9 +27,9 @@ const Report: React.FC = () => {
 
   return (
     <>
-      <div className="flex items-center w-full border-b border-gray-200 gap-10 py-4">
+      <div className="flex items-center w-full border-b border-gray-200 gap-6 py-4 flex-col md:flex-row justify-between">
         <PageTitle title={pageDefs.report.name} />
-        <div className="flex items-center gap-10 ml-auto">
+        <div className="flex items-center gap-10">
           <PeriodSelector period={period} onPeriodChange={(p) => dispatch(changePeriod(p))} disabled={loading} />
           <Button size="md" icon={IoMdRefresh} onClick={() => dispatch(fetchReportData())} variant="success" disabled={loading} />
         </div>
