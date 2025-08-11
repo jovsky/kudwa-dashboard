@@ -91,7 +91,7 @@ body {
 }
 
 @utility btn-base {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: flex-start;
   transition: colors 0.2s;
