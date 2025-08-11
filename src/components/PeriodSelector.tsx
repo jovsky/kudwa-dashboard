@@ -14,7 +14,7 @@ interface PeriodSelectorProps {
 const PeriodSelector: FC<PeriodSelectorProps> = ({ period, onPeriodChange, disabled }) => {
   return (
     <div className={`flex items-center gap-4 ${disabled ? "pointer-events-none" : ""}`}>
-      <h2 className="text-lg font-semibold text-kudwa-dark">Period:</h2>
+      <h2 className="text-md md:text-lg font-semibold text-kudwa-dark">Period:</h2>
       <div className="flex gap-2">
         {periods.map((p) => (
           <button

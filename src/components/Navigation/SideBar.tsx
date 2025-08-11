@@ -29,7 +29,8 @@ const SideBar: FC = () => {
 
   return (
     <div
-      className={`flex flex-col p-4 shadow-soft-right h-full bg-kudwa-brown-100 items-center ${transition} ${isOpen ? "w-52" : "w-[70px]"}`}
+      className={`flex flex-col py-4 md:p-4 shadow-soft-right h-full bg-kudwa-brown-100 
+        pointer-events-auto items-center overflow-hidden ${transition} ${isOpen ? "p-4 w-52" : "md:w-[70px] w-0"}`}
     >
       <div className="flex w-full justify-between items-center mb-10">
         <div
