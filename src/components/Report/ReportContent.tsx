@@ -35,7 +35,7 @@ const ReportContent: React.FC<ReportContentProps> = ({ reportData, period }) => 
         </p>
       </div>
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 mb-6">
         <Collapsible
           togglerText={"Profit & Loss Overview"}
           complementaryText={`(${reportData.reportResult.profitnLoss.length} metrics)`}

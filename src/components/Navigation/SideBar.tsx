@@ -40,7 +40,7 @@ const SideBar: FC = () => {
         </div>
         <Button size="md" icon={RiMenuLine} onClick={() => dispatch(toggleSidebar())} className="border-kudwa-brown-200" />
       </div>
-      <div className={`flex flex-col gap-3 items-start w-full justify-center`}>
+      <div className={`flex flex-col gap-4 items-start w-full justify-center`}>
         {Object.values(pageDefs).map((page) => (
           <Button
             key={page.route}

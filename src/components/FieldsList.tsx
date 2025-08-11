@@ -6,15 +6,13 @@ interface FieldsListProps {
 }
 
 const FieldsList: React.FC<FieldsListProps> = ({ list, className = "" }) => {
-  const keySpanWidth = Math.max(...Object.keys(list).map((key) => key.length)) * 8
-
   return (
-    <div className={`flex flex-col gap-2 h-fit ${className}`}>
+    <div className={`flex flex-col gap-1 h-fit ${className}`}>
       {Object.entries(list).map(([key, value]) => (
-        <div key={key}>
-          <span className="font-semibold" style={{ minWidth: keySpanWidth }}>
+        <div key={key} className="flex">
+          <div key={key} className="font-semibold mr-2">
             {key}:
-          </span>{" "}
+          </div>{" "}
           {value}
         </div>
       ))}

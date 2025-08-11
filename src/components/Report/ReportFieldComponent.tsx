@@ -19,19 +19,24 @@ interface ReportFieldComponentProps {
 const ReportFieldComponent: React.FC<ReportFieldComponentProps> = ({ field, otherInfo, period, uniqueReference }) => {
   return (
     <div className="rounded-lg mb-4 bg-kudwa-light">
-      <div className="font-bold text-lg mb-2">{field.name}</div>
+      <div className="flex justify-between flex-col lg:flex-row">
+        <div className="flex flex-col">
+          <div className="font-bold text-lg mb-2">{field.name}</div>
+          <div className="flex gap-2 text-sm mb-4 flex-wrap">
+            <FieldsList
+              list={{
+                ID: field.id,
+                Description: field.description ?? "-",
+                Style: field.style ?? "-",
+                "Created At": formatDateTime(field.createdAt),
+                "Updated At": formatDateTime(field.updatedAt),
+              }}
+            />
+            <FieldsList list={otherInfo} />
+          </div>
+        </div>
 
-      <div className="flex gap-10 text-sm items-end mb-6">
-        <FieldsList
-          list={{
-            ID: field.id,
-            Description: field.description ?? "-",
-            Style: field.style ?? "-",
-            "Created At": formatDateTime(field.createdAt),
-            "Updated At": formatDateTime(field.updatedAt),
-          }}
-        />
-        <FieldsList list={otherInfo} />
+        <div className="w-full md:w-fit"></div>
         {uniqueReference && <UniqueReferenceComponent uniqueReference={uniqueReference} />}
       </div>
 

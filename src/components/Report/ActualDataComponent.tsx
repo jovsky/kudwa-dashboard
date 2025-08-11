@@ -20,7 +20,7 @@ const ActualDataComponent: React.FC<ActualDataComponentProps> = ({ actualData })
     <div className="my-3 bg-kudwa-yellow-100 p-4 rounded-3xl border-2 border-kudwa-yellow">
       {data ? (
         <>
-          <div className="flex gap-10 text-sm items-end mb-6">
+          <div className="flex text-sm mb-2 flex-col lg:flex-row items-start lg:items-end gap-2 lg:gap-10">
             <FieldsList
               list={{
                 "Account ID": data.codatAccountId || "-",

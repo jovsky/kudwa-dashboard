@@ -35,7 +35,7 @@ const ProfitNLossComponent: React.FC<ProfitNLossComponentProps> = ({ field, peri
 
       {field.fields && field.fields.length > 0 && (
         <Collapsible variant="bg-gray" togglerText={`${field.name} Metrics`} complementaryText={`(${field.fields.length})`}>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-3 md:gap-6">
             {field.fields.map((subfield) => (
               <ProfitNLossComponent key={subfield.id} field={subfield} period={period} />
             ))}

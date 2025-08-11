@@ -39,7 +39,7 @@ const Collapsible: FC<CollapseProps> = ({
       <button
         onClick={toggle}
         className={`collapsible-toggler flex justify-start items-center
-                  text-center h-10 w-full px-6 bg-gray-200
+                  text-center h-8 lg:h-10 w-full px-6 bg-gray-200
                   hover:bg-gray-300 rounded-t-lg
                   gap-4 text-base cursor-pointer ${togglerClass}
                   ${isOpen ? "rounded-b-none" : "rounded-b-lg"}
@@ -56,7 +56,7 @@ const Collapsible: FC<CollapseProps> = ({
         unmountOnExit={true}
         easing={{ enter: "ease-in", exit: "ease-out" }}
       >
-        <div className={`p-6 relative w-full h-fit`} data-collapse-content>
+        <div className={`p-4 lg:p-6 relative w-full h-fit`} data-collapse-content>
           {children}
         </div>
       </Collapse>
